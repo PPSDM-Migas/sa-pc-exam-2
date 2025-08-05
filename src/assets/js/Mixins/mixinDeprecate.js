@@ -1,6 +1,5 @@
 import { buttonMixins } from '@/assets/js/Mixins/Partials/buttons';
 import { cardMixins } from '@/assets/js/Mixins/Partials/cards';
-import srf from '@/assets/js/Mixins/url/srf.json';
 
 import { reactive } from 'vue';
 import AxiosForm from '@/assets/js/Mixins/Class/AxiosForm';

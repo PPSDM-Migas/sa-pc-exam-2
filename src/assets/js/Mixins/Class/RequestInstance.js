@@ -3,7 +3,7 @@ import axios from 'axios';
 import { mixins } from "@/assets/js/Mixins/mixinDeprecate.js";
 import { isProxy, toRaw } from 'vue'
 import {useRouter} from "vue-router";
-
+import srf from '@/assets/js/Mixins/url/srf.json';
 
 export default class RequestInstance {
   /**
@@ -266,6 +266,56 @@ export default class RequestInstance {
   }
 
   /**
+   * Memetakan URL berdasar route name dari Laravel yang tersimpan sebagai Route Dict sekaligus mengisi parameternya.
+   *
+   * @param {string} routeName Nama route yang akan dipetakan. Harus ada di routeDict yang dituju.
+   * @param {string} method RESTful method yang digunakan
+   * @param {Array|Object} params Parameter yang akan dipetakan ke url
+   * @returns {*|string} URL Lengkap setelah pemetaan parameter
+   */
+  useUrl(routeName, method = 'get', params = {}) {
+    const routeMap = { srf };
+    const serviceRoutes = routeMap['srf'];
+
+    if (!serviceRoutes || !serviceRoutes[method] || !serviceRoutes[method][routeName]) {
+      console.warn(`Route not found: ${this.service} > ${method} > ${routeName}`);
+      return '/';
+    }
+
+    let url = serviceRoutes[method][routeName];
+
+    const placeholders = url.match(/{\w+(\?)?}/g) || [];
+
+    const getValue = (key, index) => {
+      if (Array.isArray(params)) return params[index] !== undefined ? params[index] : undefined;
+      return params[key] !== undefined ? params[key] : undefined;
+    };
+
+    // Replace each placeholder with its corresponding value from the params object
+    placeholders.forEach((placeholder, index) => {
+      const key = placeholder.replace(/[{}]/g, '').replace(/\?$/, ''); // Remove curly braces and optional marker
+      const isOptional = placeholder.includes('?'); // Check if the placeholder is optional
+
+      const value = getValue(key, index);
+
+      if (!isOptional && (value === undefined || value === '')) {
+        throw new Error(
+          `Terjadi kesalahan: Parameter URL wajib bernama "${key}" belum terpetakan untuk route "${routeName}" :(`,
+        );
+      }
+
+      // If the parameter is optional and not provided, skip it
+      if (isOptional && params[key] === undefined) {
+        url = url.replace(placeholder, '');
+      } else {
+        url = url.replace(placeholder, value);
+      }
+    });
+
+    return url;
+  }
+
+  /**
    * Menerjemahkan route name ke URL sebenarnya.
    * @param {string} method Metode REST API yang digunakan.
    * @param {string} routeName Nama route di kamus (Biasanya sesuai route laravel)
@@ -275,10 +325,7 @@ export default class RequestInstance {
    */
   setUrl(method, routeName, routeParam) {
     const m = ['get', 'post', 'put', 'patch', 'delete'].includes(method.toLowerCase()) ? method : 'get';
-    if (isProxy(routeParam)) {
-      routeParam = toRaw(routeParam);
-    }
-    return mixins.useUrl('srf', routeName, m, routeParam, true);
+    return this.useUrl(routeName, m, routeParam);
   }
 
   /**

@@ -15,6 +15,7 @@ import WithShutdownLayout from "@/layouts/WithShutdownLayout.vue";
 import BackgroundLayout from "@/layouts/BackgroundLayout.vue";
 import {useI18n} from "vue-i18n";
 import {translateDate, translateDateRange} from "@/assets/js/Mixins/TreeShake/dateTime.js";
+import {changeDarkMode} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
 
 const source = import.meta.env.VITE_BASE_API ?? 'http://127.0.0.1:10600';
 const todaySchedules = reactive({
@@ -72,7 +73,7 @@ const handleCountdownFromLayout = (val = -1) => {
 }
 
 const toggleDark = () => {
-  mixins.changeDarkMode();
+  changeDarkMode();
 }
 
 const drawerOpen = ref(false);

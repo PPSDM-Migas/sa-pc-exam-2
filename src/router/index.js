@@ -12,8 +12,7 @@ const router = createRouter({
     {
       path: '/pre-exam',
       name: 'login',
-      // component: () => import('../views/Auth/CameraLogin.vue')
-      component: () => import('../views/Welcome.vue')
+      component: () => import('../views/CameraLogin.vue')
     },
     {
       path: '/exam',
