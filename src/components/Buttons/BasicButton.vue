@@ -54,7 +54,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/Components/ui/tooltip';
-import { mixins } from '@/Mixins/mixinDeprecate';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 
 const emits = defineEmits(['click'])
 

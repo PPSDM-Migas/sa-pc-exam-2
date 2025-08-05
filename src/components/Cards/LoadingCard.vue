@@ -21,7 +21,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { mixins } from '@/Mixins/mixinDeprecate';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 // import NotificationCard from '@/Components/Cards/NotificationCard.vue';
 import BasicCard from '@/Components/Cards/BasicCard.vue';
 

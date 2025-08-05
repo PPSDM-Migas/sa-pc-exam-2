@@ -21,14 +21,13 @@
 <script setup>
 import TheToast from '@/Components/Toasts/TheToast.vue';
 import { computed, onMounted, reactive, watch } from 'vue';
-import { usePage } from '@inertiajs/vue3';
-import { mixins } from '@/Mixins/mixinDeprecate';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 
 /**
  * Pesan didalam banner
  * @return {boolean|string|((commentsFile: string) => string)|string}
  */
-const message = computed(() => usePage().props.flash || '');
+const message = computed(() => '');
 
 const mailQueue = reactive({});
 let x = 1;

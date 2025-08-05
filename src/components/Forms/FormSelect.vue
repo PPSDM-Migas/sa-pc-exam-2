@@ -168,8 +168,8 @@
 <script setup>
 import InputLabel from '@/Components/Forms/Core/InputLabel.vue';
 import { computed, isReactive, onMounted, onUnmounted, ref, toRaw, useSlots, watch } from 'vue';
-import { mixins } from '@/Mixins/mixinDeprecate';
-import {pnrRequest, srfRequest} from '@/Mixins/Class/Request';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
+import {srfRequest} from '@/assets/js/Mixins/Class/Request';
 import { faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 const props = defineProps({
@@ -511,16 +511,6 @@ const asyncSearch = (loc = '', search = '', initialFind = false) => {
 
       if (mixins.checkVarType(props.asyncUrl) === 'array') {
         switch (props.asyncUrl[0]) {
-          case 'pnr':
-            pnrRequest
-              .setBody(props.asyncUrl[2] ?? {})
-              .setUrlParams({...props.asyncUrl[2], ...params} ?? {})
-              .setHeaders(props.asyncUrl[3] ?? {})
-              .get(props.asyncUrl[1], props.asyncUrl[2] ?? {})
-              .then(defaultThen)
-              .catch(defaultCatch)
-              .finally(defaultFinal);
-            break;
           case 'srf':
           default:
             srfRequest

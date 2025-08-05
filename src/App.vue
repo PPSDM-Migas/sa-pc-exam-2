@@ -1,6 +1,7 @@
 <script setup>
 
 import {invoke} from "@tauri-apps/api/core";
+import BasicButton from "@/components/Buttons/BasicButton.vue";
 
 const shutPcDown = (command) => {
   // if (command === 'shutdown') {
@@ -29,4 +30,5 @@ const exitApp = () => {
   <h1 class="font-extrabold">Hello</h1>
   <p @click="exitApp">Close</p>
   <p @click="shutPcDown('sleep')">Sleep</p>
+  <BasicButton>:D</BasicButton>
 </template>

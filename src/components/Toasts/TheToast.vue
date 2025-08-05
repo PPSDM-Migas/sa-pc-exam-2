@@ -43,7 +43,7 @@
 
 <script setup>
 import { computed, ref, onMounted } from 'vue';
-import { mixins } from '@/Mixins/mixinDeprecate';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 
 const props = defineProps({
   bannerType: {

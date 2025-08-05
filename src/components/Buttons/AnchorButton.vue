@@ -1,30 +1,33 @@
 <template>
-  <v-tooltip v-if="tooltip">
-    <a v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :href="href" :target="target">
-      <font-awesome-icon
-        v-if="icon || onLoading"
-        :icon="onLoading ? 'cog' : icon"
-        :class="{ 'mr-2': $slots.default }"
-        :size="small ? undefined : 'lg'"
-        :spin="onLoading"
-      />
-      <slot />
-    </a>
-    <button v-else class="y__btn" :class="[colorSet, paddingConfig]" disabled>
-      <font-awesome-icon
-        v-if="icon || onLoading"
-        :icon="onLoading ? 'cog' : icon"
-        :class="{ 'mr-2': $slots.default }"
-        :size="small ? undefined : 'lg'"
-        :spin="onLoading"
-      />
-      <slot />
-    </button>
-
-    <template #popper>
-      <p class="text-xs">{{ tooltip }}</p>
-    </template>
-  </v-tooltip>
+  <TooltipProvider v-if="tooltip">
+    <Tooltip>
+      <TooltipTrigger as-child>
+        <a v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :href="href" :target="target">
+          <font-awesome-icon
+            v-if="icon || onLoading"
+            :icon="onLoading ? 'cog' : icon"
+            :class="{ 'mr-2': $slots.default }"
+            :size="small ? undefined : 'lg'"
+            :spin="onLoading"
+          />
+          <slot />
+        </a>
+        <button v-else class="y__btn" :class="[colorSet, paddingConfig]" disabled>
+          <font-awesome-icon
+            v-if="icon || onLoading"
+            :icon="onLoading ? 'cog' : icon"
+            :class="{ 'mr-2': $slots.default }"
+            :size="small ? undefined : 'lg'"
+            :spin="onLoading"
+          />
+          <slot />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p class="text-xs">{{ tooltip }}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 
   <template v-else>
     <a v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :href="href" :target="target">
@@ -52,7 +55,8 @@
 
 <script setup>
 import { computed, useSlots } from 'vue';
-import { mixins } from '@/Mixins/mixinDeprecate';
+import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip/index.js";
 
 const props = defineProps({
   /**

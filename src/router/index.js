@@ -1,0 +1,34 @@
+import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
+// import HomeView from '../views/Welcome.vue'
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: () => import('../views/Welcome.vue')
+    },
+    {
+      path: '/pre-exam',
+      name: 'login',
+      // component: () => import('../views/Auth/CameraLogin.vue')
+      component: () => import('../views/Welcome.vue')
+    },
+    {
+      path: '/exam',
+      name: 'ujian',
+      // component: () => import('../views/Exam/ExamRoom.vue')
+      component: () => import('../views/Welcome.vue')
+    },
+    {
+      path: '/post-exam/:sid/:pid',
+      name: 'eval',
+      props: true,
+      // component: () => import('../views/Exam/PostExam.vue')
+      component: () => import('../views/Welcome.vue')
+    }
+  ]
+})
+
+export default router

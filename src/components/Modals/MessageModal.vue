@@ -28,9 +28,7 @@
 </template>
 
 <script setup>
-import { useSlots } from 'vue';
 import ModalFoundation from '@/Components/Modals/Core/ModalFoundation.vue';
-import { mixins } from '@/Mixins/mixinDeprecate';
 
 defineProps({
     show: {

@@ -2,7 +2,7 @@
   <TooltipProvider v-if="tooltip">
     <Tooltip>
       <TooltipTrigger as-child>
-        <Link v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :href="href">
+        <RouterLink v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :to="href" @click="emits('click')">
           <font-awesome-icon
             v-if="icon || onLoading"
             :icon="onLoading ? 'cog' : icon"
@@ -11,17 +11,7 @@
             :spin="onLoading"
           />
           <slot />
-        </Link>
-        <button v-else class="y__btn" :class="[colorSet, paddingConfig]" disabled>
-          <font-awesome-icon
-            v-if="icon || onLoading"
-            :icon="onLoading ? 'cog' : icon"
-            :class="{ 'mr-2': $slots.default }"
-            :size="small ? undefined : 'lg'"
-            :spin="onLoading"
-          />
-          <slot />
-        </button>
+        </RouterLink>
       </TooltipTrigger>
       <TooltipContent>
         <p class="text-xs">{{ tooltip }}</p>
@@ -30,7 +20,7 @@
   </TooltipProvider>
 
   <template v-else>
-    <Link v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :href="href">
+    <RouterLink v-if="!disabled" class="y__btn" :class="[colorSet, paddingConfig]" :to="href">
       <font-awesome-icon
         v-if="icon || onLoading"
         :icon="onLoading ? 'cog' : icon"
@@ -39,7 +29,7 @@
         :spin="onLoading"
       />
       <slot />
-    </Link>
+    </RouterLink>
     <button v-else class="y__btn" :class="[colorSet, paddingConfig]" disabled>
       <font-awesome-icon
         v-if="icon || onLoading"
@@ -55,9 +45,9 @@
 
 <script setup>
 import { computed, useSlots } from 'vue';
-import { Link } from '@inertiajs/vue3';
-import { mixins } from '@/Mixins/mixinDeprecate';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/Components/ui/tooltip/index.js';
+import { mixins } from "@/assets/js/Mixins/mixin";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip/index.js";
+const emits = defineEmits(['click'])
 
 const props = defineProps({
   /**
@@ -100,7 +90,7 @@ const props = defineProps({
    * Default: null
    */
   icon: {
-    type: [String, Array, Object],
+    type: String,
     required: false,
   },
   onLoading: Boolean,
