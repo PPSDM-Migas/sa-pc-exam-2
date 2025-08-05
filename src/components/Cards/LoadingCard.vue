@@ -12,7 +12,7 @@
         <slot />
 
         <div v-if="withTime" class="italic text-xs">
-          Dimulai pada {{ mixins.translateDate(startTime, false, '', false, false, false, true) }} (+{{ stringTime }})
+          Dimulai pada {{ translateDate(startTime, false, '', false, false, false, true) }} (+{{ stringTime }})
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 // import NotificationCard from '@/Components/Cards/NotificationCard.vue';
 import BasicCard from '@/Components/Cards/BasicCard.vue';
+import {translateDate} from "../../assets/js/Mixins/TreeShake/dateTime.js";
 
 defineProps({
   iconType: {

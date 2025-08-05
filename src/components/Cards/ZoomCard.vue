@@ -8,7 +8,7 @@
 defineProps({
   color: {
     type: String,
-    default: 'bg-linear-to-bl from-10% from-yellow-400/50 via-transparent',
+    default: 'bg-linear-to-bl from-yellow-400 to-blue-500',
   },
   customClass: String,
 });

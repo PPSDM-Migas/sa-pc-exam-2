@@ -14,6 +14,7 @@ import truckGif from '@/assets/img/gif/truck-whoosh.gif';
 import WithShutdownLayout from "@/layouts/WithShutdownLayout.vue";
 import BackgroundLayout from "@/layouts/BackgroundLayout.vue";
 import {useI18n} from "vue-i18n";
+import {translateDate, translateDateRange} from "@/assets/js/Mixins/TreeShake/dateTime.js";
 
 const source = import.meta.env.VITE_BASE_API ?? 'http://127.0.0.1:10600';
 const todaySchedules = reactive({
@@ -80,7 +81,7 @@ const flipDrawer = () => {
 };
 
 // eslint-disable-next-line
-const getRange = (item) => mixins.translateDateRange(item.certification_start_at, item.certification_end_at, true, ' s/d ');
+const getRange = (item) => translateDateRange(item.certification_start_at, item.certification_end_at, true, ' s/d ');
 
 onMounted(() => {
   mountSchedule();
@@ -125,7 +126,7 @@ const { t, locale } = useI18n();
           <BasicCard color="glass-bright dark:glass-dark">
             <div class="mb-4 text-center text-white">
               <p class="text-lg font-extrabold">{{ t('landing.todaySchedules') }}</p>
-              <p class="text-xs italic font-semibold">{{ mixins.translateDate(new Date(), true) }}</p>
+              <p class="text-xs italic font-semibold">{{ translateDate(new Date(), true) }}</p>
             </div>
 
             <div
