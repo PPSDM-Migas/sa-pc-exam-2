@@ -23,7 +23,7 @@
         <font-awesome-icon icon="times" />
       </button>
       <button v-else class="toast-close-btn delay">
-        <img src="/storage/svg/Clock.svg" />
+        <font-awesome-icon :icon="faClock"></font-awesome-icon>
       </button>
 
       <!-- Timer before auto execute -->
@@ -44,6 +44,8 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faClock} from "@fortawesome/free-solid-svg-icons";
 
 const props = defineProps({
   bannerType: {

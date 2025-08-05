@@ -262,6 +262,19 @@
     }
 }
 
+.bg-island {
+  background-image: url("@/assets/img/bg/island-blue.png");
+  @apply bg-center bg-cover bg-fixed;
+}
+
+.bg-island.blue {
+  background-image: url("@/assets/img/bg/island.png");
+}
+
+.layout-bg-center {
+  @apply relative flex flex-col justify-center sm:items-center min-h-screen
+}
+
 /* Library Button Css */
 
 .y__btn {
