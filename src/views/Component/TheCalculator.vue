@@ -70,9 +70,10 @@ function percentage() {
 
 <template>
   <div>
-    <FormTextarea id="form" v-model="expression" />
     <div class="all-center w-full">
       <div class="grid grid-cols-1 gap-2">
+        <textarea id="form" class="text-ld bg-white dark:bg-gray-700" v-model="expression"></textarea>
+
         <div class="flex gap-2">
           <div class="calc-btn" @click="cleanAll">CA</div>
           <div class="calc-btn" @click="percentage">&percnt;</div>
