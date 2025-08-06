@@ -24,8 +24,7 @@ const router = createRouter({
       path: '/post-exam/:sid/:pid',
       name: 'eval',
       props: true,
-      // component: () => import('../views/Exam/PostExam.vue')
-      component: () => import('../views/Welcome.vue')
+      component: () => import('../views/PostExam.vue')
     }
   ]
 })

@@ -54,7 +54,7 @@ watch(enLang, () => {
 </script>
 
 <template>
-  <div :class="`bg-island ${withTimer ? 'blue' : ''} layout-bg-center p-8 overflow-hidden`">
+  <div :class="`bg-island ${withTimer ? 'blue' : ''} layout-bg-center p-8 overflow-auto`">
     <ToastContainer ref="toast"/>
 
     <slot />
