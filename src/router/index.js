@@ -17,8 +17,8 @@ const router = createRouter({
     {
       path: '/exam',
       name: 'ujian',
-      // component: () => import('../views/Exam/ExamRoom.vue')
-      component: () => import('../views/Welcome.vue')
+      component: () => import('../views/ExamRoom.vue')
+      // component: () => import('../views/Welcome.vue')
     },
     {
       path: '/post-exam/:sid/:pid',

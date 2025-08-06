@@ -100,7 +100,7 @@ const updateContent = (newContent) => {
 <style scoped>
 :deep(.ql-toolbar.ql-snow) {
   border: 0;
-  @apply bg-secondary-dark-alt;
+  background-color: #3ad1ff;
 }
 
 :deep(.ql-container.ql-snow) {
