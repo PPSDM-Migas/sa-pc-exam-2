@@ -2,11 +2,14 @@
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faPaperPlane, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { ulid } from 'ulid';
 
 const props = defineProps({
   onLeft: Boolean,
   vertical: Boolean,
   monitor: Boolean,
+  examSessionId: String,
+  participantId: String,
 });
 
 const ping = ref(0);
@@ -40,7 +43,9 @@ const handleReconnection = () => {
 
 function connectWebSocket() {
   if (!import.meta.env.VITE_WS_PING) return;
-  socket = new WebSocket(import.meta.env.VITE_WS_PING);
+  const id = localStorage.getItem('ulid') ?? ulid();
+  const additional = `&session_id=${props.examSessionId}&participant_id=${props.participantId}&ulid=${id}`;
+  socket = new WebSocket(`${import.meta.env.VITE_WS_PING}${props.monitor ? additional : ''}`);
 
   const sendPing = () => {
     if (socket.readyState === WebSocket.OPEN) {

@@ -317,11 +317,11 @@ const getQuestionNumbers = async () => {
   await examReq
     .get('participant_exam.question_numbers')
     .then(async (res) => {
-      examDetail.loadStatus = 1;
       await nextTick();
       openCamera();
       examDetail.data = res.data.content;
       getQuestionDetail(examDetail.data.questions[0]?.id);
+      examDetail.loadStatus = 1;
       startTimer();
     })
     .catch((error) => {
@@ -539,7 +539,14 @@ onUnmounted(() => {
 
             <div class="flex gap-2 flex-col md:flex-row items-end md:items-center">
               <div class="bg-gray-100 dark:bg-gray-800 text-white px-4 py-2 rounded-xl">
-                <PingTest ref="ping" on-left monitor />
+                <PingTest
+                  v-if="examDetail.loadStatus === 1"
+                  ref="ping"
+                  on-left
+                  monitor
+                  :exam-session-id="examDetail.data.certification_schedule.certification_schedule_id"
+                  :participant-id="examDetail.data.certification_participant.certification_participant_id"
+                />
               </div>
               <div class="bg-blue-600 text-white px-4 py-3 rounded-xl">
                 <div class="w-full flex items-center gap-2">
