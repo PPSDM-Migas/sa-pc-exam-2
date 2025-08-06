@@ -1707,7 +1707,7 @@ ul.tree-container li:not(:last-child)::after {
 .corner-right-btn::after,
 .corner-left-btn,
 .corner-left-btn::after{
-    @apply bg-primary-alt dark:bg-primary-dark-alt h-12;
+    @apply bg-primary h-12;
 }
 
 .red.corner-right-btn,
