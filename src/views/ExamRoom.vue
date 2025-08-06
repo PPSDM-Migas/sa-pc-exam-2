@@ -472,13 +472,13 @@ onMounted(() => {
   userActions.value = JSON.parse(localStorage.getItem('userActions') ?? '[]');
   getQuestionNumbers();
   defaultDarkModeCheck();
-  getCurrentWindow().setFullscreen(true);
-  getCurrentWindow().setAlwaysOnTop(true);
+  // getCurrentWindow().setFullscreen(true);
+  // getCurrentWindow().setAlwaysOnTop(true);
 });
 
 onUnmounted(() => {
-  getCurrentWindow().setFullscreen(false);
-  getCurrentWindow().setAlwaysOnTop(false);
+  // getCurrentWindow().setFullscreen(false);
+  // getCurrentWindow().setAlwaysOnTop(false);
   clearInterval(timerInterval);
 });
 </script>
