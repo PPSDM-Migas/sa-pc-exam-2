@@ -94,11 +94,12 @@ onMounted(() => {
 
 const { t, locale } = useI18n();
 
+const layout = ref(null);
 </script>
 
 <template>
-  <UpdateCheck ref="updater" />
-  <BackgroundLayout left-btn-icon="sun" right-btn-icon="power-off" right-btn-class="red" @left-corner="toggleDark()" @right-corner="flipDrawer()">
+  <UpdateCheck ref="updater" @toast-event="(x) => layout.manualPushToast(x)" />
+  <BackgroundLayout ref="layout" left-btn-icon="sun" right-btn-icon="power-off" right-btn-class="red" @left-corner="toggleDark()" @right-corner="flipDrawer()">
     <div class="w-full max-w-5xl z-[1]">
 
       <!-- The Header -->

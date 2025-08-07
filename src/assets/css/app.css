@@ -2152,3 +2152,127 @@ table.icon-table.with-colon.left td:nth-child(4) {
   -webkit-backdrop-filter: blur(20px);
   @apply group-hover:bg-gradient-to-bl group-hover:from-10% group-hover:from-yellow-400/50 group-hover:via-transparent shadow-lg border border-white/30;
 }
+
+.tube {
+  @apply relative w-full h-5 border-2 border-primary-dark rounded-full bg-dark overflow-hidden;
+}
+
+.tube .body {
+  @apply absolute w-full h-full left-0;
+  border-radius: inherit;
+  z-index: 5;
+}
+
+.tube .liquid {
+  @apply absolute w-full h-full left-0;
+}
+
+.tube .liquid .percentage {
+  @apply absolute h-full left-0 top-0 bg-primary transition-all duration-300;
+  position: absolute;
+  width: var(--tube-percentage);
+  z-index: 80;
+}
+
+@keyframes bubble {
+  from {
+    background: #272822;
+    transform: scale(0.3) rotate(50deg);
+    margin-top: 0;
+  }
+
+  10% {
+    margin-top: 1px;
+  }
+
+  20% {
+    margin-top: -1px;
+  }
+
+  30% {
+    margin-top: 1px;
+  }
+
+  40% {
+    margin-top: -1px;
+  }
+
+  50% {
+    background-color: #eed601;
+    margin-top: 1px;
+    transform: scale(0.85) rotate(50deg);
+    opacity: .75;
+  }
+
+  60% {
+    margin-top: -1px;
+  }
+
+  70% {
+    margin-top: 1px;
+  }
+
+  80% {
+    margin-top: -1px;
+  }
+
+  90% {
+    margin-top: 1px;
+  }
+
+  to {
+    margin-top: -1px;
+    left: 135%;
+    opacity: 0;
+    transform: scale(1) rotate(50deg);
+  }
+}
+
+.tube .bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(var(--tube-percentage) + calc( 100% - var(--tube-percentage) ));
+  z-index: 10;
+}
+
+.tube .bubbles div{
+  @apply bg-ternary-dark;
+  position: absolute;
+  top: 30%;
+  border-radius: 50% 50% 0 50%;
+  height: 10px;
+  width: 10px;
+  opacity: 0.8;
+  left: calc(var(--tube-percentage) / 3);
+  animation: bubble 3s infinite linear;
+  transform: scale(0.3) rotate(50deg);
+  transition: 1s;
+}
+
+.tube .bubbles div:nth-child(2) {
+  top: 40%;
+  opacity: 0.7;
+  animation-delay: 100ms;
+  animation-duration: 2.5s;
+}
+
+.tube .bubbles div:nth-child(3) {
+  top: 10%;
+  opacity: 0.6;
+  animation-delay: 200ms;
+}
+
+.tube .bubbles div:nth-child(4) {
+  top: 60%;
+  animation-delay: 250ms;
+  animation-duration: 1.75s;
+}
+
+.tube .bubbles div:nth-child(5) {
+  top: 50%;
+  opacity: 0.8;
+  animation-delay: 150ms;
+  animation-duration: 2.25s;
+}
