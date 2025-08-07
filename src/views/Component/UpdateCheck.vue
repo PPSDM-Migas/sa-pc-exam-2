@@ -62,7 +62,7 @@ const downloadUpdate = async () => {
   });
 }
 
-const checkForUpdate = async () => {
+const checkForUpdate = async (openDirect = false) => {
   try {
     checker.status = 0;
     update = await check();
@@ -70,6 +70,7 @@ const checkForUpdate = async () => {
       checker.status = 1;
       checker.info = update;
       if (props.autoUpdate) await downloadUpdate();
+      if (openDirect) downloader.modalShow = true;
     } else {
       checker.status = -1;
       emits('toastEvent', {

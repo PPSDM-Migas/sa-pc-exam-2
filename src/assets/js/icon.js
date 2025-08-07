@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faAngleDown,
   faAnglesLeft,
   faAnglesRight, faArrowsRotate, faBars, faBed,
   faBook, faCalculator, faCarBurst,
@@ -26,6 +27,7 @@ import {
 // import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faAngleDown,
   faAnglesLeft,
   faAnglesRight,
   faArrowsRotate,

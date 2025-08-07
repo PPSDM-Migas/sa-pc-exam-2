@@ -29,6 +29,8 @@ const defaultDarkModeCheck = () => {
         displayMode = localStorage.getItem('theme') === 'dark';
         changeMode();
     }
+
+    return displayMode;
 };
 
 export { changeDarkMode, defaultDarkModeCheck };

@@ -57,18 +57,56 @@ jobs:
         run: npm install # Change to 'yarn install' or 'pnpm install' if needed
 
       # Build and release
-      - name: Build Tauri app
+      - name: Build sa-pc-exam For Internal (Purple Background)
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Add these if you want signed updates
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
+          VITE_BASE_API: ${{ secrets.VITE_BASE_API }}
+          VITE_ENV: 'insite'
+          VITE_EVAL_URL: ${{ secrets.VITE_EVAL_URL }}
+          VITE_EVL: ${{ secrets.VITE_EVL }}
+          VITE_POR: ${{ secrets.VITE_POR }}
+          VITE_POR_TOKEN: ${{ secrets.VITE_POR_TOKEN }}
+          VITE_WS: ${{ secrets.VITE_WS }}
+          VITE_WS_PING: ${{ secrets.VITE_WS_PING }}
         with:
           # Release settings
-          tagName: ${{ github.ref_name }}
-          releaseName: 'MyApp ${{ github.ref_name }}'
-          releaseBody: 'See the assets to download this version and install.'
+          tagName: '${{ github.ref_name }}-internal'
+          releaseName: 'sa-pc-exam-internal ${{ github.ref_name }}'
+          releaseBody: 'https://layanan.ppsdmmigas.id/appujian/releasenote/v${{ github.ref_name }}'
+          releaseDraft: false
+          prerelease: false
+
+          # Build settings
+          includeUpdaterJson: true # Generate JSON for auto-updates
+          updaterJsonPreferNsis: true # Use .exe for Windows updates
+          args: ${{ matrix.args }}
+
+      - name: Build sa-pc-exam For External (Blue Background)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Add these if you want signed updates
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
+          VITE_BASE_API: ${{ secrets.VITE_BASE_API }}
+          VITE_ENV: 'external'
+          VITE_EVAL_URL: ${{ secrets.VITE_EVAL_URL }}
+          VITE_EVL: ${{ secrets.VITE_EVL }}
+          VITE_POR: ${{ secrets.VITE_POR }}
+          VITE_POR_TOKEN: ${{ secrets.VITE_POR_TOKEN }}
+          VITE_WS: ${{ secrets.VITE_WS }}
+          VITE_WS_PING: ${{ secrets.VITE_WS_PING }}
+        with:
+          # Release settings
+          tagName: '${{ github.ref_name }}'
+          releaseName: 'sa-pc-exam ${{ github.ref_name }}'
+          releaseBody: 'https://layanan.ppsdmmigas.id/appujian/releasenote/v${{ github.ref_name }}'
           releaseDraft: false
           prerelease: false
 
