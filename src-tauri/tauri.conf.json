@@ -23,6 +23,7 @@
     }
   },
   "bundle": {
+    "createUpdaterArtifacts": true,
     "active": true,
     "targets": "all",
     "icon": [
@@ -32,5 +33,16 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "$UPDATER_PUBLIC_KEY",
+      "endpoints": [
+        "$UPDATE_ENDPOINT"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
   }
 }

@@ -16,6 +16,7 @@ import BackgroundLayout from "@/layouts/BackgroundLayout.vue";
 import {useI18n} from "vue-i18n";
 import {translateDate, translateDateRange} from "@/assets/js/Mixins/TreeShake/dateTime.js";
 import {changeDarkMode} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
+import UpdateCheck from "@/views/Component/UpdateCheck.vue";
 
 const source = import.meta.env.VITE_BASE_API ?? 'http://127.0.0.1:10600';
 const todaySchedules = reactive({
@@ -84,15 +85,19 @@ const flipDrawer = () => {
 // eslint-disable-next-line
 const getRange = (item) => translateDateRange(item.certification_start_at, item.certification_end_at, true, ' s/d ');
 
+const updater = ref(null);
 onMounted(() => {
   mountSchedule();
   mixins.defaultDarkModeCheck();
+  updater.value.checkForUpdate();
 });
 
 const { t, locale } = useI18n();
+
 </script>
 
 <template>
+  <UpdateCheck ref="updater" />
   <BackgroundLayout left-btn-icon="sun" right-btn-icon="power-off" right-btn-class="red" @left-corner="toggleDark()" @right-corner="flipDrawer()">
     <div class="w-full max-w-5xl z-[1]">
 

@@ -36,7 +36,14 @@ fn trigger_shutdown_state(command: &str) -> Result<(), String> {
         "shutdown" => {
             if cfg!(target_os = "windows") {
                 Command::new("shutdown")
-                    .args(["/s", "/f", "/t", "60", "/c", "Komputer anda akan mati dalam 60 detik :)"])
+                    .args([
+                        "/s",
+                        "/f",
+                        "/t",
+                        "60",
+                        "/c",
+                        "Komputer anda akan mati dalam 60 detik :)",
+                    ])
                     .output()
             } else if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
                 Command::new("shutdown").args(["-h", "+1"]).output()
@@ -78,8 +85,9 @@ fn closing_app(_code: u8) {
 }
 
 fn main() {
-//     sa_pc_exam_2_lib::run()
+    //     sa_pc_exam_2_lib::run()
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             trigger_shutdown_state,
             closing_app
