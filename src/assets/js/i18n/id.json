@@ -1,0 +1,156 @@
+{
+  "title": "Ujian Teori Sertifikasi PPSDM Migas",
+  "button": {
+    "retry": "Coba Lagi",
+    "check": "Cek",
+    "sendAns": "Simpan Jawaban",
+    "prev": "Sebelumnya",
+    "next": "Selanjutnya",
+    "finish": "Selesaikan Ujian",
+    "cancel": "Tidak Jadi",
+    "deleteNote": "Hapus Catatan",
+    "storeNoteEmpty": "Tandai Tanpa Catatan",
+    "storeNote": "Tandai dan Simpan Catatan",
+    "contExam": "Lanjutkan Ujian",
+    "finishExam": "Akhiri Sekarang",
+    "openEval": "Buka Evaluasi",
+    "mainPage": "Ke Halaman Utama"
+  },
+  "problem": "Terjadi Kesalahan",
+  "control": {
+    "title": "Kontrol Aplikasi/Perangkat",
+    "titleApp": "Aplikasi",
+    "exit": "Keluar Aplikasi",
+    "titleControl": "Kontrol Perangkat",
+    "sleep": "Mode Tidur",
+    "hibernate": "Hibernasi",
+    "shutdown": "Matikan Perangkat",
+    "close": "Tutup",
+    "cancel": "Batalkan Mematikan Perangkat",
+    "cancelTimer": "Akan mati pada",
+    "commandShutdown": "Anda telah memerintahkan perangkat anda untuk mematikan daya"
+  },
+  "landing": {
+    "todaySchedules": "Jadwal Sertifikasi Hari Ini",
+    "start": "Mulai Ujian",
+    "noSchedule": "Tidak Ada Jadwal untuk Hari Ini",
+    "shutdownTimer": "Perangkat akan mati pada",
+    "contractSchedule": "Kerja Sama",
+    "regularSchedule": "Reguler",
+    "contactingServer": "Menghubungi Server Ujian...",
+    "contactFail": "Terjadi Kesalahan dalam Menghubungi Server Ujian"
+  },
+  "camera": {
+    "notAllowed": "Anda tidak memberikan izin kami untuk membuka kamera anda :(",
+    "noCamera": "Tidak ada kamera di perangkat ini :(",
+    "notSecure": "Harap membuka aplikasi ini menggunakan HTTPS",
+    "inUse": "Kami tidak bisa mengakses kamera, sepertinya dipakai di aplikasi lain",
+    "unsupported": "Mohon maaf kamera anda tidak kami dukung :(",
+    "browserSupport": "Stream API tidak didukung oleh browser ini :(",
+    "insecure": "Hanya diizinkan menggunakan kamera ketika menggunakan HTTPS"
+  },
+  "cameraS1": {
+    "timer": "Anda akan kembali ke halaman utama pada",
+    "openCam": "Membuka Kamera...",
+    "camPermission": "Pastikan anda memberi izin aplikasi untuk mengakses kamera",
+    "camProblem": "Ada masalah pada kamera anda",
+    "camExamDenied": "Anda tidak bisa melanjukan untuk melaksanakan ujian",
+    "pageReload": "Silahkan muat ulang halaman ini",
+    "validationTitle": "Validasi Peserta",
+    "problem": "Terjadi Kesalahan",
+    "showQR": "Silahkan arahkan kode QR Kartu Ujian anda ke kamera",
+    "codeInput": "Atau silahkan masukkan kode peserta anda dalam form berikut",
+    "codeForm": "Kode Peserta Ujian",
+    "finding": "Mencari Peserta",
+    "patience": "Harap bersabar yaa"
+  },
+  "cameraS2": {
+    "title": "Konfirmasi Biodata Peserta",
+    "name": "Nama Peserta",
+    "scheme": "Nama Skema Sertifikasi",
+    "level": "Nama Tingkatan",
+    "completeBio": "Silahkan lengkapi biodata anda sebelum memulai ujian",
+    "phone": "Nomor Telepon Pribadi",
+    "whatsapp": "Diutamakan nomor yang memiliki akun WhatsApp",
+    "company": "Nama Perusahaan",
+    "wrong": "Biodata Salah/Bukan Saya",
+    "next": "Simpan dan Lanjut",
+    "empty": "Nomor Telepon dan Nama Perusahaan tidak boleh kosong",
+    "updated": "Biodata berhasil dirubah :)",
+    "callIT": "Hubungi tim IT karena ada kesalahan penting :("
+  },
+  "cameraS3": {
+    "title": "Kata Sandi Ujian",
+    "ask": "Silahkan tanyakan pengawas yang bertugas untuk kode akses ujian",
+    "form": "Kata Sandi",
+    "start": "Mulai Ujian",
+    "toExam": "Membawa anda ke halaman ujian..."
+  },
+  "exam": {
+    "load": "Harap sabar, tenang, jangan panik, dan jangan lupa berdo'a",
+    "prep": "Menyiapkan Ujian Anda...",
+    "nav": "Ujian Teori Sertifikasi",
+    "color": "Warna",
+    "zoomIn": "Perbesar",
+    "zoomOut": "Perkecil",
+    "initial": "Mengambil Data Ujian Anda :D",
+    "header": {
+      "typePartnership": "Sertifikasi Kerja Sama",
+      "typeRegular": "Sertifikasi Reguler",
+      "till": " s/d ",
+      "timer": "Sisa Waktu Ujian"
+    },
+    "timer": {
+      "1st": "Waktu pengerjaan tersisa kurang dari {time} menit lagi!",
+      "2nd": "Waktu pengerjaan tinggal {m} menit {s} detik. Ketika waktu habis, ujian akan langsung diselesaikan otomatis!",
+      "3rd": "Waktu pengerjaan tinggal {s} detik. Ketika waktu habis, ujian akan langsung diselesaikan otomatis!",
+      "hour": "{n} jam",
+      "min": "{n} menit",
+      "sec": "{n} detik"
+    },
+    "quest": {
+      "load": "Mengambil isi soal... Harap tunggu sebentar :D",
+      "num": "Soal",
+      "commandPick": "Silahkan pilih salah satu jawaban dengan klik di opsi.",
+      "optionPicked": "Jawaban yang anda pilih ditandai dengan",
+      "optionNote": "Anda bisa menandai opsi untuk catatan anda dengan menekan tombol",
+      "essayIntro": "Silahkan menuliskan jawaban anda di form dibawah. Jawaban belum disimpan apabila anda belum menekan tombol",
+      "essayCont": ".",
+      "yourAns": "Jawaban Anda"
+    },
+    "number": {
+      "list": "Daftar Soal",
+      "calc": "Kalkulator"
+    },
+    "note": {
+      "modalTitle": "Kelola Catatan Jawaban",
+      "yourNote": "Catatan Anda...",
+      "explain": "Fitur ini memungkinkan Anda menandai 1 atau lebih jawaban saat anda ragu-ragu. Jawaban yang Anda tandai disimpan untuk diri anda sendiri dan belum dianggap sebagai jawaban final sampai Anda menekan di jawabannya."
+    },
+    "finish": {
+      "titleEarly": "Konfirmasi Mengakhiri Ujian Lebih Awal",
+      "titleFinishing": "Mengakhiri Ujian",
+      "questRemain": "Sisa Soal",
+      "unanswered": "belum dijawab",
+      "allDone": "Semua sudah dijawab",
+      "warning": "Apakah anda yakin untuk mengakhiri ujian sekarang? Setelah anda keluar, anda tidak bisa merubah jawaban lagi.",
+      "afterWarning": "Harap perhatikan kartu ujian dan barang bawaan anda tidak tertinggal sebelum meninggalkan ruang ujian :)",
+      "storing": "Menyimpan data ujian anda :D"
+    },
+    "eval": {
+      "bring": "Membawa ke Halaman Evaluasi",
+      "intro": "Harap tunggu sebentar membawa anda ke halaman selanjutnya anda yaitu halaman evaluasi.",
+      "1st": "Harap diisi semua pertanyaan evaluasi dengan jujur, sesuai kondisi hati, dan kondisi layanan sesuai persepsi anda.",
+      "2nd": "Tenang, semua jawaban di evaluasi tersebut tidak mempengaruhi hasil ujian anda."
+    },
+    "warning": {
+      "initAns": "Menyimpan jawaban ke-{ans} untuk nomor {num}",
+      "successAns": "Berhasil menyimpan jawaban ke-{ans} untuk nomor {num}",
+      "faultAns": "Kesalahan menyimpan jawaban ke-{ans} untuk nomor {num}"
+    }
+  },
+  "post": {
+    "notShown": "Evaluasi tidak muncul?",
+    "isFinish": "Sudah mengisi evaluasi?"
+  }
+}

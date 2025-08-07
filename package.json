@@ -1,7 +1,7 @@
 {
   "name": "sa-pc-exam-2",
   "private": true,
-  "version": "0.1.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,13 +10,43 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/vue-fontawesome": "^3.1.1",
+    "@headlessui/vue": "^1.7.23",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/vite": "^4.1.11",
+    "@tauri-apps/api": "^2.7.0",
+    "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-process": "^2.3.0",
+    "@tauri-apps/plugin-updater": "^2.9.0",
+    "@vueup/vue-quill": "^1.2.0",
+    "@vueuse/core": "^13.6.0",
+    "animejs": "^4.1.2",
+    "axios": "^1.11.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "gsap": "^3.13.0",
+    "lodash": "^4.17.21",
+    "lucide-vue-next": "^0.536.0",
+    "reka-ui": "^2.4.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.11",
+    "tw-animate-css": "^1.3.6",
+    "ulid": "^3.0.1",
     "vue": "^3.5.13",
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2"
+    "vue-i18n": "^11.1.11",
+    "vue-markdown-render": "^2.2.1",
+    "vue-mathjax-next": "^0.0.6",
+    "vue-qrcode-reader": "^5.7.3",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.9.2",
     "vite": "^6.0.3",
-    "@tauri-apps/cli": "^2"
+    "vite-plugin-vue-devtools": "^8.0.0"
   }
 }

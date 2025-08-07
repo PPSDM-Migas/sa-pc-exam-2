@@ -1,0 +1,155 @@
+{
+  "title": "Theory Exam for Certification by PPSDM Migas",
+  "button": {
+    "retry": "Try Again",
+    "check": "Check",
+    "sendAns": "Submit Answer",
+    "prev": "Previous",
+    "next": "Next",
+    "finish": "Finish the Exam",
+    "cancel": "Cancel",
+    "deleteNote": "Clear My Note",
+    "storeNoteEmpty": "Mark Without Note",
+    "storeNote": "Mark and Append Note",
+    "contExam": "Continue Exam",
+    "finishExam": "Finish Now",
+    "openEval": "Open Evaluation",
+    "mainPage": "To the Main Page"
+  },
+  "control": {
+    "title": "Application/Device Control",
+    "titleApp": "Application",
+    "exit": "Exit App",
+    "titleControl": "Device Control",
+    "sleep": "Sleep Mode",
+    "hibernate": "Hibernation",
+    "shutdown": "Turn Off Device",
+    "close": "Close",
+    "cancel": "Cancel Turning Off the Device",
+    "cancelTimer": "Will turn off in",
+    "commandShutdown": "You Have Instructed Your Device to Turn Off The Power"
+  },
+  "landing": {
+    "todaySchedules": "Today Exam Schedule(s)",
+    "start": "Let's Start",
+    "noSchedule": "There Is No Schedule for Today",
+    "shutdownTimer": "The device will turn off in",
+    "contractSchedule": "Partnership",
+    "regularSchedule": "Regular",
+    "contactingServer": "Contacting The Exam Server...",
+    "contactFail": "An Error Occurred While Contacting the Exam Server"
+  },
+  "camera": {
+    "notAllowed": "You did not give application access to access your camera :(",
+    "noCamera": "No camera found in your device :(",
+    "notSecure": "Please access this application using HTTPS",
+    "inUse": "The application cannot access your camera, it seems used by another application",
+    "unsupported": "Sorry but your camera is unsupported by us :(",
+    "browserSupport": "Stream API is not supported by this application :(",
+    "insecure": "Only permitted to use camera when using HTTPS connection"
+  },
+  "cameraS1": {
+    "timer": "You will be redirected to the main page in",
+    "openCam": "Opening Camera...",
+    "camPermission": "Make sure you have given the application access to camera",
+    "camProblem": "There are some problem with your camera",
+    "camExamDenied": "You can not continue to do exam at this moment",
+    "pageReload": "Please refresh this page",
+    "validationTitle": "Participant Validation",
+    "problem": "Problem Occurred",
+    "showQR": "Please show your QR of the Exam Card to the camera",
+    "codeInput": "Or you can type your participant code inside form below",
+    "codeForm": "Participant Exam Code",
+    "finding": "Looking for Participant",
+    "patience": "Please be patience"
+  },
+  "cameraS2": {
+    "title": "Participant Personal Data Confirmation",
+    "name": "Participant's Name",
+    "scheme": "Certification Scheme Name",
+    "level": "Level Name",
+    "completeBio": "Please complete your data before starting the exam",
+    "whatsapp": "Preferably, choose a number that has a WhatsApp account",
+    "company": "Company Name",
+    "phone": "Personal Phone Number",
+    "wrong": "Current Data Is Not Me/Wrong",
+    "next": "Save and Continue",
+    "empty": "Phone Number and Company Name cannot empty",
+    "updated": "Personal Data successfully updated :)",
+    "callIT": "Please call the IT Team as there are urgent problem of this app"
+  },
+  "cameraS3": {
+    "title": "Exam Password",
+    "ask": "Please ask exam supervisor in charge to get the password",
+    "form": "Password",
+    "start": "Start Exam",
+    "toExam": "Bringing You to the Exam Page..."
+  },
+  "exam": {
+    "load": "Please be patient, calm, don't panic, and don't forget to pray",
+    "prep": "Preparing Your Exam",
+    "nav": "Theory Exam for Certification",
+    "color": "Color",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "initial": "Loading Your Exam Data :D",
+    "header": {
+      "typePartnership": "Partnership Certification",
+      "typeRegular": "Regular Certification",
+      "till": " to ",
+      "timer": "Time Remaining"
+    },
+    "timer": {
+      "1st": "Exam duration is less than {time} minutes!",
+      "2nd": "Time remaining: {min} {sec}. When time is up, exam will be finished automatically!",
+      "3rd": "Time remaining: {sec}. When time is up, exam will be finished automatically!",
+      "hour": "{n} hour | {n} hours",
+      "min": "{n} minute | {n} minutes",
+      "sec": "{n} second | {n} seconds"
+    },
+    "quest": {
+      "load": "Retrieving the question content... Please wait a moment :D",
+      "num": "Question Number",
+      "commandPick": "Please pick one of the options by clicking at the card.",
+      "optionPicked": "Option that you pick marked with",
+      "optionNote": "You can give note to the option by clicking at button with sign",
+      "essayIntro": "Please write your answer in form below. The answer would not be saved if you didn't click at",
+      "essayCont": "button.",
+      "yourAns": "Your Answer"
+    },
+    "number": {
+      "list": "List of Questions",
+      "calc": "Calculator"
+    },
+    "note": {
+      "modalTitle": "Manage Option Note",
+      "yourNote": "Your Note...",
+      "explain": "This feature allows you to mark one or more answers when you are unsure. The answers you mark are saved for your reference only and are not considered final answers until you click on the answer."
+    },
+    "finish": {
+      "titleEarly": "Confirm To Finish Exam Early",
+      "titleFinishing": "Finish Exam",
+      "questRemain": "Question Remaining",
+      "unanswered": "unanswered",
+      "allDone": "All have been answered",
+      "warning": "Are you sure you want to end the exam now? Once you exit, you will not be able to change your answers anymore.",
+      "afterWarning": "Please check your exam card and belongings to make sure nothing is left behind before leaving the exam room :)",
+      "storing": "Storing your exam data :D"
+    },
+    "eval": {
+      "bring": "Bringing You to the Exam Page",
+      "intro": "Please wait a moment while we take you to the next page, which is the evaluation page.",
+      "1st": "Please answer all evaluation questions honestly, based on your feelings and your perception of the service.",
+      "2nd": "Don't worry, all of your feedback answer would not affect your exam result."
+    },
+    "warning": {
+      "initAns": "Storing answer #{ans} for question number {num}",
+      "successAns": "Successfully storing answer #{ans} for question number {num}",
+      "faultAns": "There is something wrong during storing answer #{ans} for question number {num}"
+    }
+  },
+  "post": {
+    "notShown": "Feedback form not shown?",
+    "isFinish": "Have you completed all the feedback responses?"
+  }
+}
