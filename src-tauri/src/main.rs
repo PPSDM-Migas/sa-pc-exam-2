@@ -87,6 +87,7 @@ fn closing_app(_code: u8) {
 fn main() {
     //     sa_pc_exam_2_lib::run()
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             trigger_shutdown_state,

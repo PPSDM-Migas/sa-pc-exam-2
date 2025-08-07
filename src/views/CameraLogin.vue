@@ -19,6 +19,7 @@ import BackgroundLayout from "@/layouts/BackgroundLayout.vue";
 import {useI18n} from "vue-i18n";
 import PingTest from "@/views/PingTest.vue";
 import {changeDarkMode} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
+import SettingModal from "@/views/Component/SettingModal.vue";
 
 const layout = ref(null);
 const { t, locale } = useI18n();
@@ -316,10 +317,13 @@ onMounted(() => {
 onUnmounted(() => {
   clearTimer();
 });
+
+const setting = ref(false);
 </script>
 
 <template>
-  <BackgroundLayout ref="layout" left-btn-icon="sun" right-btn-class="red" right-btn-icon="reply" @left-corner="toggleDark()" @right-corner="router.back()">
+  <BackgroundLayout ref="layout" left-btn-icon="cog" right-btn-class="red" right-btn-icon="reply" @left-corner="setting = !setting" @right-corner="router.back()">
+    <SettingModal :show="setting" @close="setting = !setting" />
     <LogoTitleCard class="w-full px-4" />
 
     <div class="flex justify-center my-4">

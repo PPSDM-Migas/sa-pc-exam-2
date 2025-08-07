@@ -1,7 +1,17 @@
-# Tauri + Vue 3
+<p align="center"><a href="https://ppsdmmigas.esdm.go.id" target="_blank"><img src="https://drive.google.com/uc?id=1YjAU0IHixFVYQ7Ug7dmKzapzxWE1aaO4" width="400" alt="PPSDM Migas Logo"></a></p>
 
-This template should help get you started developing with Tauri + Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# SuperApp PPSDM Migas: Applikasi Desktop Ujian Teori Sertifikasi
 
-## Recommended IDE Setup
+## TL;DR
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+| Nama         | Nilai        |
+|--------------|--------------|
+| Kode Service | 52           |
+| Codename     | `sa-pc-exam` |
+| Tipe         | Front-End    |
+
+## Intro
+
+Selamat datang di Service dengan kode `52`, yaitu Aplikasi Ujian Teori Sertifikasi. Service ini digunakan untuk:
+- Port mode desktop (via Tauri di v2 ini, dan electron di v1) dari sa-fe-exam
+- Sebagai media melaksakan ujian dengan aman dan proteksi konten

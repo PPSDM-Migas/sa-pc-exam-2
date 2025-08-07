@@ -17,7 +17,9 @@ import {useI18n} from "vue-i18n";
 import {translateDate, translateDateRange} from "@/assets/js/Mixins/TreeShake/dateTime.js";
 import {changeDarkMode} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
 import UpdateCheck from "@/views/Component/UpdateCheck.vue";
+import SettingModal from "@/views/Component/SettingModal.vue";
 
+const onProd = computed(() => import.meta.env.MODE === 'production');
 const source = import.meta.env.VITE_BASE_API ?? 'http://127.0.0.1:10600';
 const todaySchedules = reactive({
   loadStatus: 0,
@@ -95,11 +97,19 @@ onMounted(() => {
 const { t, locale } = useI18n();
 
 const layout = ref(null);
+
+const setting = ref(false);
+
+const checkUpdate = () => {
+  updater.value.checkForUpdate(true);
+  setting.value = false;
+}
 </script>
 
 <template>
-  <UpdateCheck ref="updater" @toast-event="(x) => layout.manualPushToast(x)" />
-  <BackgroundLayout ref="layout" left-btn-icon="sun" right-btn-icon="power-off" right-btn-class="red" @left-corner="toggleDark()" @right-corner="flipDrawer()">
+  <UpdateCheck :auto-update="onProd" ref="updater" @toast-event="(x) => layout.manualPushToast(x)" />
+  <BackgroundLayout ref="layout" left-btn-icon="cog" right-btn-icon="power-off" right-btn-class="red" @left-corner="setting = !setting" @right-corner="flipDrawer()">
+    <SettingModal :show="setting" @close="setting = !setting" @check-update="checkUpdate()" />
     <div class="w-full max-w-5xl z-[1]">
 
       <!-- The Header -->

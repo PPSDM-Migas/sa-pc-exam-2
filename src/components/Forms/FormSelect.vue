@@ -169,8 +169,8 @@
 import InputLabel from '@/components/Forms/Core/InputLabel.vue';
 import { computed, isReactive, onMounted, onUnmounted, ref, toRaw, useSlots, watch } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
-import {srfRequest} from '@/assets/js/Mixins/Class/Request';
 import { faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
 
 const props = defineProps({
   /**
@@ -510,19 +510,6 @@ const asyncSearch = (loc = '', search = '', initialFind = false) => {
       };
 
       if (mixins.checkVarType(props.asyncUrl) === 'array') {
-        switch (props.asyncUrl[0]) {
-          case 'srf':
-          default:
-            srfRequest
-              .setBody(props.asyncUrl[2] ?? {})
-              .setUrlParams({...props.asyncUrl[2], ...params} ?? {})
-              .setHeaders(props.asyncUrl[3] ?? {})
-              .get(props.asyncUrl[1], props.asyncUrl[2] ?? {})
-              .then(defaultThen)
-              .catch(defaultCatch)
-              .finally(defaultFinal);
-            break;
-        }
       } else axios.get(props.asyncUrl, { params }).then(defaultThen).catch(defaultCatch).finally(defaultFinal);
     }, 500);
   } else if (!search) {

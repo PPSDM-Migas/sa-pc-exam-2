@@ -1267,7 +1267,6 @@ textarea::before {
 /* Partials/layout.css */
 
 .auth-background {
-    background-image: url('/storage/bg/hot.png');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
