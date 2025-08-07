@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import BasicButton from '@/Components/Buttons/BasicButton.vue';
+import BasicButton from '@/components/Buttons/BasicButton.vue';
 
 defineProps({
   controlVariable: Object,

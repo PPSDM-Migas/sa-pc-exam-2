@@ -1,6 +1,6 @@
 <script setup>
-import NotificationCard from '@/Components/Cards/NotificationCard.vue';
-import BasicButton from '@/Components/Buttons/BasicButton.vue';
+import NotificationCard from '@/components/Cards/NotificationCard.vue';
+import BasicButton from '@/components/Buttons/BasicButton.vue';
 
 defineProps({
   loadFunction: {

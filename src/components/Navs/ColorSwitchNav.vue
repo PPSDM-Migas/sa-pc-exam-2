@@ -17,7 +17,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/Components/ui/tooltip/index.js';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip/index.js';
 
 const darkModeOn = ref(false);
 

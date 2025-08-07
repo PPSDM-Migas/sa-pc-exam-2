@@ -22,8 +22,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
-// import NotificationCard from '@/Components/Cards/NotificationCard.vue';
-import BasicCard from '@/Components/Cards/BasicCard.vue';
+// import NotificationCard from '@/components/Cards/NotificationCard.vue';
+import BasicCard from '@/components/Cards/BasicCard.vue';
 import {translateDate} from "../../assets/js/Mixins/TreeShake/dateTime.js";
 
 defineProps({

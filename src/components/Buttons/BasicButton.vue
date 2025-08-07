@@ -53,7 +53,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/Components/ui/tooltip';
+} from '@/components/ui/tooltip';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 
 const emits = defineEmits(['click'])

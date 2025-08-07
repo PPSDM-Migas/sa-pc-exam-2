@@ -1,8 +1,8 @@
 <script setup>
-import BasicCard from '@/Components/Cards/BasicCard.vue';
-import BasicButton from '@/Components/Buttons/BasicButton.vue';
+import BasicCard from '@/components/Cards/BasicCard.vue';
+import BasicButton from '@/components/Buttons/BasicButton.vue';
 import { computed, ref, watchEffect } from 'vue';
-import AnchorButton from '@/Components/Buttons/AnchorButton.vue';
+import AnchorButton from '@/components/Buttons/AnchorButton.vue';
 
 const props = defineProps({
   modelValue: {

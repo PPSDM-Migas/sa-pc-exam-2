@@ -29,8 +29,8 @@
 </template>
 
 <script setup>
-import ConfirmationModal from '@/Components/Modals/ConfirmationModal.vue';
-import BasicButton from '@/Components/Buttons/BasicButton.vue';
+import ConfirmationModal from '@/components/Modals/ConfirmationModal.vue';
+import BasicButton from '@/components/Buttons/BasicButton.vue';
 
 const props = defineProps({
   /**

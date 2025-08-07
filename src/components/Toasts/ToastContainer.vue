@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import TheToast from '@/Components/Toasts/TheToast.vue';
+import TheToast from '@/components/Toasts/TheToast.vue';
 import { computed, onMounted, reactive, watch } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 

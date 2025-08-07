@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import ModalFoundation from '@/Components/Modals/Core/ModalFoundation.vue';
+import ModalFoundation from '@/components/Modals/Core/ModalFoundation.vue';
 
 defineProps({
     show: {

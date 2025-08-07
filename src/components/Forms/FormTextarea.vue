@@ -77,7 +77,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import InputLabel from '@/Components/Forms/Core/InputLabel.vue';
+import InputLabel from '@/components/Forms/Core/InputLabel.vue';
 
 const props = defineProps({
   modelValue: [String, Number],

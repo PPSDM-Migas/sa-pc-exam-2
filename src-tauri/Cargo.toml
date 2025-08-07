@@ -1,9 +1,9 @@
 [package]
 name = "sa-pc-exam-2"
 version = "2.0.0"
-description = "A Tauri App"
-authors = ["you"]
-edition = "2021"
+description = "Ujian Teori Berbasis Komputer untuk Sertifikasi PPSDM Migas"
+authors = ["IT PPSDM Migas"]
+edition = "2025"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

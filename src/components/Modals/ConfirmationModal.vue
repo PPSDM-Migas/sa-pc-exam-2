@@ -36,7 +36,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import ModalFoundation from '@/Components/Modals/Core/ModalFoundation.vue';
+import ModalFoundation from '@/components/Modals/Core/ModalFoundation.vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 
 const props = defineProps({

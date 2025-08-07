@@ -166,7 +166,7 @@
 </template>
 
 <script setup>
-import InputLabel from '@/Components/Forms/Core/InputLabel.vue';
+import InputLabel from '@/components/Forms/Core/InputLabel.vue';
 import { computed, isReactive, onMounted, onUnmounted, ref, toRaw, useSlots, watch } from 'vue';
 import { mixins } from '@/assets/js/Mixins/mixinDeprecate';
 import {srfRequest} from '@/assets/js/Mixins/Class/Request';

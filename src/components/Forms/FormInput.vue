@@ -113,7 +113,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, ref } from 'vue';
-import InputLabel from '@/Components/Forms/Core/InputLabel.vue';
+import InputLabel from '@/components/Forms/Core/InputLabel.vue';
 
 const props = defineProps({
   prefix: String,

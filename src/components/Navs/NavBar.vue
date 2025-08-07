@@ -85,8 +85,8 @@
 </template>
 
 <script setup>
-import ApplicationLogo from '@/Components/Logo/ApplicationLogo.vue';
-import ColorSwitchNav from '@/Components/Navs/ColorSwitchNav.vue';
+import ApplicationLogo from '@/components/Logo/ApplicationLogo.vue';
+import ColorSwitchNav from '@/components/Navs/ColorSwitchNav.vue';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip/index.js";
 import {onMounted, onUnmounted, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
