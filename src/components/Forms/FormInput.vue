@@ -37,6 +37,7 @@
         :max="maxVal"
         :min="minVal"
         :step="step"
+        :autocomplete="autocomplete"
         @blur="loseFocus"
         @change="emit('change')"
         @input="handleCursor"
@@ -116,6 +117,7 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 import InputLabel from '@/components/Forms/Core/InputLabel.vue';
 
 const props = defineProps({
+  autocomplete: String,
   prefix: String,
   // modelValue: [String, Number],
   /**

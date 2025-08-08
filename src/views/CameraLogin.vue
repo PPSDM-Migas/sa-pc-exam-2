@@ -300,10 +300,6 @@ const checkCameraPermission = async () => {
   }
 };
 
-const withTimer = computed(() => {
-  return import.meta.env.VITE_ENV && import.meta.env.VITE_ENV === 'insite';
-});
-
 const toggleDark = () => {
   changeDarkMode();
 }

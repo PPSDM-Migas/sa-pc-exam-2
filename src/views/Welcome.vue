@@ -66,10 +66,6 @@ const mountSchedule = () => {
   });
 };
 
-const withTimer = computed(() => {
-  return import.meta.env.VITE_ENV && import.meta.env.VITE_ENV === 'insite';
-});
-
 const shutdownCt = ref(-1);
 const handleCountdownFromLayout = (val = -1) => {
   shutdownCt.value = val;

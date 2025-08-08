@@ -10,10 +10,6 @@ import {Switch} from "@headlessui/vue";
 import idFlag from '@/assets/img/svg/indonesia.svg';
 import enFlag from '@/assets/img/svg/united-kingdom.svg';
 
-const withTimer = computed(() => {
-  return import.meta.env.VITE_ENV && import.meta.env.VITE_ENV === 'insite';
-});
-
 const appVersion = ref(packageJson.version);
 
 const emits = defineEmits(['leftCorner', 'rightCorner']);
@@ -38,8 +34,12 @@ const enLang = ref(null);
 defineExpose({
   manualPushToast,
 })
+
+const withTimer = ref(false)
 onMounted(() => {
   mixins.defaultDarkModeCheck();
+  console.log([localStorage.getItem('internalMode') === 'insite', localStorage.getItem('internalMode')])
+  withTimer.value = localStorage.getItem('internalMode') === 'insite';
   enLang.value = localStorage.getItem('lang') === 'en';
 })
 
@@ -61,22 +61,6 @@ watch(enLang, () => {
 
     <!-- The Footer -->
     <BasicCard color="sub" class="mt-8">
-      <div class="flex items-center justify-center gap-2">
-        <div class="w-full">
-          <img :src="idFlag" alt="Bahasa Indonesia" class="h-10" />
-        </div>
-        <div class="flex-shirk-0">
-          <Switch v-model="enLang" as="div" :class="enLang ? 'bg-secondary' : 'bg-red-600'" class="switch-container lang">
-            <span class="sr-only">Use QR</span>
-            <span aria-hidden="true" :class="enLang ? 'active' : ''" class="switch-button" />
-          </Switch>
-        </div>
-        <div class="w-full">
-          <img :src="enFlag" alt="English" class="h-10" />
-        </div>
-      </div>
-    </BasicCard>
-    <BasicCard color="sub" class="mt-2">
       <div class="text-sm text-ld text-center">
         <slot name="footer" />
         <p>sa-pc-ujian v{{appVersion}} - SuperApp PPSDM Migas &copy; 2025 PPSDM Migas</p>

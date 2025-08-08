@@ -93,14 +93,12 @@ const startShutdownTimer = () => {
   }, 1000);
 };
 
-const withTimer = computed(() => {
-  return import.meta.env.VITE_ENV && import.meta.env.VITE_ENV === 'insite';
-});
+const withTimer = () => localStorage.getItem('internalMode') === 'insite';
 
 const { t } = useI18n();
 
 onMounted(() => {
-  if (withTimer.value) startShutdownTimer();
+  if (withTimer()) startShutdownTimer();
   else emits('shutdownCountdown', -1);
 });
 

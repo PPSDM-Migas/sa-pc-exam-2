@@ -84,6 +84,11 @@ fn closing_app(_code: u8) {
     std::process::exit(0);
 }
 
+#[tauri::command]
+fn validate_input(user_input: String) -> bool {
+    user_input == "selm1945c3pu;"
+}
+
 fn main() {
     //     sa_pc_exam_2_lib::run()
     tauri::Builder::default()
@@ -91,7 +96,8 @@ fn main() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             trigger_shutdown_state,
-            closing_app
+            closing_app,
+            validate_input
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
