@@ -137,7 +137,7 @@ const finishExam = async () => {
     .catch((err) => {
       confirmEnd.loadStatus = -1;
       confirmEnd.error.code = err.response.status;
-      const defaultError = 'Terjadi Kesalahan :(';
+      const defaultError = t('problem');
       confirmEnd.error.message = err.response.data ? err.response.data.error ?? defaultError : defaultError;
     })
     .finally(() => {
@@ -318,7 +318,7 @@ const getQuestionNumbers = async () => {
     .get('participant_exam.question_numbers')
     .then(async (res) => {
       await nextTick();
-      openCamera();
+      await openCamera();
       examDetail.data = res.data.content;
       getQuestionDetail(examDetail.data.questions[0]?.id);
       examDetail.loadStatus = 1;
@@ -865,7 +865,7 @@ onUnmounted(() => {
         <div v-else-if="confirmEnd.loadStatus === -1">
           <BasicCard>
             <font-awesome-icon icon="car-burst" size="2xl"></font-awesome-icon>
-            <h5 class="mt-2">{{ confirmEnd.error.message ?? 'Terjadi Kesalahan :(' }}</h5>
+            <h5 class="mt-2">{{ confirmEnd.error.message ?? t('problem') }}</h5>
             <p class="text-sm">{{ confirmEnd.error.code }}</p>
           </BasicCard>
         </div>

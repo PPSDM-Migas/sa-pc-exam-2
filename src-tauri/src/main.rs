@@ -24,7 +24,7 @@ fn trigger_shutdown_state(command: &str) -> Result<(), String> {
         "hibernate" => {
             if cfg!(target_os = "windows") {
                 Command::new("rundll32.exe")
-                    .arg("powrprof.dll,SetSuspendState Hibernate")
+                    .args(["powrprof.dll,SetSuspendState", "1,0,0"])
                     .output()
             } else if cfg!(target_os = "linux") {
                 Command::new("systemctl").arg("hibernate").output()

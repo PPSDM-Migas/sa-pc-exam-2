@@ -27,7 +27,18 @@
     "close": "Close",
     "cancel": "Cancel Turning Off the Device",
     "cancelTimer": "Will turn off in",
-    "commandShutdown": "You Have Instructed Your Device to Turn Off The Power"
+    "commandShutdown": "You Have Instructed Your Device to Turn Off The Power",
+    "hiddenSettings": "Hidden Settings",
+    "hiddenSettingsDesc": "Unlock to access advanced configuration",
+    "mode": "Mode",
+    "modeInsite": "Internal (Insite)",
+    "modeExternal": "External",
+    "countdownAction": "Countdown Action",
+    "countdownActionDesc": "What happens when the auto-timer reaches zero",
+    "actionSleep": "Sleep",
+    "actionHibernate": "Hibernate",
+    "shutdownTimer": "Shutdown Timer (minutes)",
+    "shutdownTimerNote": "Set to 0 to disable auto-shutdown"
   },
   "landing": {
     "todaySchedules": "Today Exam Schedule(s)",

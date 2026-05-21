@@ -241,6 +241,7 @@ const storeBiodata = () => {
 const startExam = () => {
   examPassword.loadStatus = 0;
 
+  localStorage.removeItem('ulid');
   localStorage.removeItem('pingStats.max');
   localStorage.removeItem('pingStats.min');
   localStorage.removeItem('pingStats.timeSeriesBucket');

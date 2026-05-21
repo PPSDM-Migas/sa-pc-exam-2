@@ -18,6 +18,13 @@ import {translateDate, translateDateRange} from "@/assets/js/Mixins/TreeShake/da
 import {changeDarkMode} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
 import UpdateCheck from "@/views/Component/UpdateCheck.vue";
 import SettingModal from "@/views/Component/SettingModal.vue";
+import PingTest from '@/views/PingTest.vue';
+import {
+  faCamera, faMicrophone,
+  faCircleCheck, faTimesCircle, faEllipsis, faCircleQuestion,
+} from '@fortawesome/free-solid-svg-icons';
+
+const { t, locale } = useI18n();
 
 const onProd = computed(() => import.meta.env.MODE === 'production');
 const source = import.meta.env.VITE_BASE_API ?? 'http://127.0.0.1:10600';
@@ -30,7 +37,7 @@ const todaySchedules = reactive({
   data: [],
 });
 
-const defaultError = 'Terjadi Kesalahan :(';
+const defaultError = t('problem');
 
 const creditsContainer = ref(null);
 const creditsContent = ref(null);
@@ -83,14 +90,38 @@ const flipDrawer = () => {
 // eslint-disable-next-line
 const getRange = (item) => translateDateRange(item.certification_start_at, item.certification_end_at, true, ' s/d ');
 
+const cameraPermission = ref('prompt');
+const microphonePermission = ref('prompt');
+
+const requestMediaAccess = async () => {
+  try {
+    await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    cameraPermission.value = 'granted';
+    microphonePermission.value = 'granted';
+  } catch (error) {
+    if (error.name === 'NotAllowedError') {
+      cameraPermission.value = 'denied';
+      microphonePermission.value = 'denied';
+    }
+  }
+};
+
+const decideIcon = (permissionStatus) => {
+  const icons = { prompt: faEllipsis, granted: faCircleCheck, denied: faTimesCircle };
+  return icons[permissionStatus] || faCircleQuestion;
+};
+
+const doesAllGranted = computed(() =>
+  cameraPermission.value === 'granted' && microphonePermission.value === 'granted'
+);
+
 const updater = ref(null);
 onMounted(() => {
   mountSchedule();
   mixins.defaultDarkModeCheck();
   updater.value.checkForUpdate();
+  requestMediaAccess();
 });
-
-const { t, locale } = useI18n();
 
 const layout = ref(null);
 
@@ -110,6 +141,12 @@ const checkUpdate = () => {
 
       <!-- The Header -->
       <LogoTitleCard class="mb-4" />
+
+      <div class="flex justify-center my-4">
+        <BasicCard>
+          <PingTest />
+        </BasicCard>
+      </div>
 
       <!-- The Main Content -->
       <div v-if="todaySchedules.loadStatus === 0" class="all-center">
@@ -173,26 +210,44 @@ const checkUpdate = () => {
         </div>
 
         <!-- Grid 2: Start button -->
-        <div class="all-center">
-          <RouterLink :to="{name: 'login'}">
-            <div class="w-46 h-44 relative group">
-              <ZoomCard color="alternate-glass" class="w-52 h-44 overflow-hidden">
-                <div>
-                  <h2>{{ t('landing.start') }}</h2>
-                </div>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="all-center">
+            <RouterLink v-if="doesAllGranted" :to="{name: 'login'}">
+              <div class="w-46 h-44 relative group">
+                <ZoomCard color="alternate-glass" class="w-52 h-44 overflow-hidden">
+                  <div>
+                    <h2>{{ t('landing.start') }}</h2>
+                  </div>
+
+                  <!-- eslint-disable-next-line max-len -->
+                  <img :src="testGif" class="h-40 absolute bottom-[-2.5rem] left-[-2rem] opacity-50" alt="test" />
+                </ZoomCard>
 
                 <!-- eslint-disable-next-line max-len -->
-                <img :src="testGif" class="h-40 absolute bottom-[-2.5rem] left-[-2rem] opacity-50" alt="test" />
-              </ZoomCard>
-
-              <!-- eslint-disable-next-line max-len -->
-              <div class="absolute w-16 h-16 all-center bg-primary rounded-full bottom-[-1rem] right-[-1rem] group-hover:bg-ternary-dark-alt">
-                <p>
-                  <font-awesome-icon icon="right-to-bracket" color="white" size="xl"></font-awesome-icon>
-                </p>
+                <div class="absolute w-16 h-16 all-center bg-primary rounded-full bottom-[-1rem] right-[-1rem] group-hover:bg-ternary-dark-alt">
+                  <p>
+                    <font-awesome-icon icon="right-to-bracket" color="white" size="xl"></font-awesome-icon>
+                  </p>
+                </div>
               </div>
-            </div>
-          </RouterLink>
+            </RouterLink>
+          </div>
+
+          <div class="flex items-center justify-center">
+            <BasicCard>
+              <p class="mb-2 text-sm text-center">Akses diperlukan:</p>
+              <div class="grid grid-cols-2 gap-4 text-center text-gray-600 dark:text-gray-400">
+                <div :class="{ 'text-red-600': microphonePermission === 'denied' }">
+                  <p><font-awesome-icon :icon="faMicrophone" size="xl" /></p>
+                  <p><font-awesome-icon :icon="decideIcon(microphonePermission)" size="sm" /></p>
+                </div>
+                <div :class="{ 'text-red-600': cameraPermission === 'denied' }">
+                  <p><font-awesome-icon :icon="faCamera" size="xl" /></p>
+                  <p><font-awesome-icon :icon="decideIcon(cameraPermission)" size="sm" /></p>
+                </div>
+              </div>
+            </BasicCard>
+          </div>
         </div>
       </div>
     </div>

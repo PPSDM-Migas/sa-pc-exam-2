@@ -28,7 +28,18 @@
     "close": "Tutup",
     "cancel": "Batalkan Mematikan Perangkat",
     "cancelTimer": "Akan mati pada",
-    "commandShutdown": "Anda telah memerintahkan perangkat anda untuk mematikan daya"
+    "commandShutdown": "Anda telah memerintahkan perangkat anda untuk mematikan daya",
+    "hiddenSettings": "Pengaturan Tersembunyi",
+    "hiddenSettingsDesc": "Buka kunci untuk mengakses konfigurasi lanjutan",
+    "mode": "Mode",
+    "modeInsite": "Internal (Insite)",
+    "modeExternal": "External",
+    "countdownAction": "Aksi Countdown",
+    "countdownActionDesc": "Yang dilakukan saat timer otomatis habis",
+    "actionSleep": "Sleep",
+    "actionHibernate": "Hibernate",
+    "shutdownTimer": "Timer Countdown (menit)",
+    "shutdownTimerNote": "Set ke 0 untuk menonaktifkan aksi otomatis"
   },
   "landing": {
     "todaySchedules": "Jadwal Sertifikasi Hari Ini",
