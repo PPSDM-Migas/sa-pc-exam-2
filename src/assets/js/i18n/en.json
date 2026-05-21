@@ -59,7 +59,26 @@
     "browserSupport": "Stream API is not supported by this application :(",
     "insecure": "Only permitted to use camera when using HTTPS connection"
   },
-  "cameraS1": {
+  "problem": "Problem Occurred",
+  "cameraAgree": {
+    "title": "Certificate Holder Agreement",
+    "wrong": "Disagree",
+    "next": "I Agree",
+    "mustAgree": "You must agree to all statements before continuing",
+    "preamble": "I, as a holder of a competency certificate from LSP PPSDM MIGAS, hereby declare that I will:",
+    "p1": "Comply with the provisions relevant to the certification scheme.",
+    "p2": "Use the certification received only within the scope of certification that has been granted.",
+    "p3": "Not misuse the certification or certificate in any way that may harm LSP PPSDM MIGAS.",
+    "p4": "Not make statements related to the certification that are considered misleading or unaccountable by LSP PPSDM MIGAS.",
+    "p5": "Not use the certificate in a misleading manner.",
+    "p6": "Not disclose confidential information to other parties without the permission of the employer or service user.",
+    "p7": "In the event of an alleged violation of this declaration, agree to be examined in accordance with applicable regulations.",
+    "p8": "If proven to have violated this declaration, accept all consequences, including suspension or revocation of the certificate.",
+    "p9": "Cease using all claims or acknowledgments referring to LSP PPSDM MIGAS or its certification if the certificate is suspended or revoked, and return the certificate issued by LSP PPSDM MIGAS.",
+    "p10": "Report to LSP PPSDM MIGAS if, during the validity period of the certificate, there are changes in health conditions or personal capability that result in the certification holder no longer meeting the required qualifications.",
+    "switchLabel": "Do you agree with all of the statements above?"
+  },
+  "cameraCode": {
     "timer": "You will be redirected to the main page in",
     "openCam": "Opening Camera...",
     "camPermission": "Make sure you have given the application access to camera",
@@ -74,7 +93,7 @@
     "finding": "Looking for Participant",
     "patience": "Please be patience"
   },
-  "cameraS2": {
+  "cameraBio": {
     "title": "Participant Personal Data Confirmation",
     "name": "Participant's Name",
     "scheme": "Certification Scheme Name",
@@ -89,7 +108,7 @@
     "updated": "Personal Data successfully updated :)",
     "callIT": "Please call the IT Team as there are urgent problem of this app"
   },
-  "cameraS3": {
+  "cameraPwd": {
     "title": "Exam Password",
     "ask": "Please ask exam supervisor in charge to get the password",
     "form": "Password",
