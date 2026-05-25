@@ -317,12 +317,12 @@ const getQuestionNumbers = async () => {
   await examReq
     .get('participant_exam.question_numbers')
     .then(async (res) => {
-      await nextTick();
-      await openCamera();
       examDetail.data = res.data.content;
       getQuestionDetail(examDetail.data.questions[0]?.id);
       examDetail.loadStatus = 1;
       startTimer();
+      await nextTick();
+      await openCamera();
     })
     .catch((error) => {
       examDetail.loadStatus = -1;

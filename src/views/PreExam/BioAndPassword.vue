@@ -91,12 +91,12 @@ const startExam = () => {
   page1Req
     .setBody({ exam_access_code: examPassword.pwd })
     .post('participant_exam.start_exam_session')
-    .then((res: { data: { content: { participant_exam_session_id?: number; token: { access: string; refresh: string } } } }) => {
+    .then((res: { data: { content: { participant_exam_session_id?: number; token: { access: string; refresh: string; expires_in?: number } } } }) => {
       emit('toast', { content: t('cameraPwd.toExam'), title: 'Info', type: 'info' });
 
-      const resp = res.data.content;
+      const resp = res.data;
       sessionStorage.setItem('partc', String(resp.participant_exam_session_id ?? 0));
-      examReq.setAccessRefreshCookie(resp.token.access, resp.token.refresh);
+      examReq.storeTokens(resp.access, resp.refresh, resp.expires_in ?? 180);
       page1Req.eraseCookie('access_token_wux');
       page1Req.eraseCookie('refresh_token_wux');
       router.push('/exam');

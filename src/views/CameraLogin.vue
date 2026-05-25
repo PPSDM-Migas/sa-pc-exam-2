@@ -77,6 +77,8 @@ const onboard = () => {
   page1Req.eraseCookie('refresh_ex_wux');
   page1Req.eraseCookie('access_token_wux');
   page1Req.eraseCookie('refresh_token_wux');
+  page1Req.eraseCookie('tkac_fuj_ex');
+  page1Req.eraseCookie('tkrf_fuj_ex');
 };
 
 const setting = ref(false);

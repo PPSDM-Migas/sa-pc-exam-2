@@ -87,11 +87,11 @@ const doCheck = async (val: string | null = null) => {
 
   userCode.fetchStatus = 0;
   axios
-    .post(`${import.meta.env.VITE_BASE_API}/api/participant-exam/match-qr`, {
+    .post(`${import.meta.env.VITE_BASE_API}/api/exam/auth/pre`, {
       participant_code: search,
     })
     .then((res) => {
-      const resp = res.data.content;
+      const resp = res.data;
       const bio: UserBio = {
         name: resp.participant_name ?? '-',
         scheme_name: resp.scheme ?? '-',
@@ -99,7 +99,7 @@ const doCheck = async (val: string | null = null) => {
         photo_path: resp.participant_photo_url ?? 'https://placehold.co/400x600',
         portal_participant_id: resp.portal_participant_id,
       };
-      page1Req.setAccessRefreshCookie(resp.token.access, resp.token.refresh);
+      page1Req.storeTokens(resp.access, resp.refresh, resp.expires_in ?? 180);
       emit('success', bio);
     })
     .catch((e: { response?: { data?: { message?: string } }; message: string }) => {
