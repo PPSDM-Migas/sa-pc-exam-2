@@ -119,7 +119,6 @@ const updater = ref(null);
 onMounted(() => {
   mountSchedule();
   mixins.defaultDarkModeCheck();
-  updater.value.checkForUpdate();
   requestMediaAccess();
 });
 
