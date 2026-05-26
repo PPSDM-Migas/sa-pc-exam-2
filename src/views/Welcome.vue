@@ -245,6 +245,11 @@ const checkUpdate = () => {
                   <p><font-awesome-icon :icon="decideIcon(cameraPermission)" size="sm" /></p>
                 </div>
               </div>
+              <div v-if="!doesAllGranted" class="flex justify-center mt-3">
+                <BasicButton icon="shield-halved" @click="requestMediaAccess()">
+                  Izinkan Akses
+                </BasicButton>
+              </div>
             </BasicCard>
           </div>
         </div>
