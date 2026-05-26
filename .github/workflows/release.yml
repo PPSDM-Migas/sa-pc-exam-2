@@ -45,6 +45,11 @@ jobs:
         with:
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
       # Install Linux dependencies (only needed for Linux)
       - name: Install dependencies (Ubuntu only)
         if: matrix.platform == 'ubuntu-22.04'
@@ -52,12 +57,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
+      # Inject private registry auth token at runtime
+      - name: Configure private registry auth
+        run: echo "//js.pkg.ppsdmmigas.id/:_authToken=${{ secrets.VERDACCIO_TOKEN }}" >> .npmrc
+
       # Install your app's dependencies
       - name: Install frontend dependencies
         run: npm install # Change to 'yarn install' or 'pnpm install' if needed
 
       # Build and release
-      - name: Build sa-pc-exam For External (Blue Background)
+      - name: Build sa-pc-exam-2
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
