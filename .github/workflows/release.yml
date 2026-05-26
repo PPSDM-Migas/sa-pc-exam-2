@@ -76,7 +76,7 @@ jobs:
           # Release settings
           tagName: '${{ github.ref_name }}'
           releaseName: 'sa-pc-exam ${{ github.ref_name }}'
-          releaseBody: 'https://layanan.ppsdmmigas.id/appujian/releasenote/v${{ github.ref_name }}'
+          releaseBody: 'https://layanan.ppsdmmigas.id/appujian/${{ github.ref_name }}/releasenote'
           releaseDraft: false
           prerelease: false
 

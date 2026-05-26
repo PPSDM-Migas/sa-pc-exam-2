@@ -54,11 +54,7 @@ const exitApp = () => {
   invoke('closing_app', { code: 1 });
 }
 
-const timer = ref(5400);
-// const timer = ref(60);
-const resetTimer = () => {
-  timer.value = 600;
-};
+const timer = ref(parseInt(localStorage.getItem('shutdownTimer') || '90') * 60);
 
 const timerTime = reactive({
   h: 0,
@@ -87,7 +83,8 @@ const startShutdownTimer = () => {
     emits('shutdownCountdown', formatTime(timer.value * 1000));
     if (timer.value <= 0) {
       clearInterval(theTimer);
-      invoke('trigger_shutdown_state', { command: 'hibernate' }).catch(console.error);
+      const action = localStorage.getItem('countdownAction') || 'hibernate';
+      invoke('trigger_shutdown_state', { command: action }).catch(console.error);
       window.location.reload();
     }
   }, 1000);
@@ -98,12 +95,12 @@ const withTimer = () => localStorage.getItem('internalMode') === 'insite';
 const { t } = useI18n();
 
 onMounted(() => {
-  if (withTimer()) startShutdownTimer();
+  if (withTimer() && timer.value > 0) startShutdownTimer();
   else emits('shutdownCountdown', -1);
 });
 
 onUnmounted(() => {
-  clearTimeout(theTimer);
+  clearInterval(theTimer);
 });
 </script>
 
