@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useI18n } from 'vue-i18n';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BasicCard from '@/components/Cards/BasicCard.vue';

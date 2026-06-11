@@ -23,6 +23,7 @@ import {
   faCamera, faMicrophone,
   faCircleCheck, faTimesCircle, faEllipsis, faCircleQuestion,
 } from '@fortawesome/free-solid-svg-icons';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
 const { t, locale } = useI18n();
 
@@ -120,6 +121,9 @@ onMounted(() => {
   mountSchedule();
   mixins.defaultDarkModeCheck();
   requestMediaAccess();
+  if (localStorage.getItem('internalMode') === 'insite') {
+    getCurrentWindow().setFullscreen(true);
+  }
 });
 
 const layout = ref(null);

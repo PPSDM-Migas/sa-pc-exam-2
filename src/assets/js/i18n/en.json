@@ -16,6 +16,7 @@
     "openEval": "Open Evaluation",
     "mainPage": "To the Main Page"
   },
+  "problem": "Problem Occurred",
   "control": {
     "title": "Application/Device Control",
     "titleApp": "Application",
@@ -27,18 +28,7 @@
     "close": "Close",
     "cancel": "Cancel Turning Off the Device",
     "cancelTimer": "Will turn off in",
-    "commandShutdown": "You Have Instructed Your Device to Turn Off The Power",
-    "hiddenSettings": "Hidden Settings",
-    "hiddenSettingsDesc": "Unlock to access advanced configuration",
-    "mode": "Mode",
-    "modeInsite": "Internal (Insite)",
-    "modeExternal": "External",
-    "countdownAction": "Countdown Action",
-    "countdownActionDesc": "What happens when the auto-timer reaches zero",
-    "actionSleep": "Sleep",
-    "actionHibernate": "Hibernate",
-    "shutdownTimer": "Shutdown Timer (minutes)",
-    "shutdownTimerNote": "Set to 0 to disable auto-shutdown"
+    "commandShutdown": "You Have Instructed Your Device to Turn Off The Power"
   },
   "landing": {
     "todaySchedules": "Today Exam Schedule(s)",
@@ -59,25 +49,6 @@
     "browserSupport": "Stream API is not supported by this application :(",
     "insecure": "Only permitted to use camera when using HTTPS connection"
   },
-  "problem": "Problem Occurred",
-  "cameraAgree": {
-    "title": "Certificate Holder Agreement",
-    "wrong": "Disagree",
-    "next": "I Agree",
-    "mustAgree": "You must agree to all statements before continuing",
-    "preamble": "I, as a holder of a competency certificate from LSP PPSDM MIGAS, hereby declare that I will:",
-    "p1": "Comply with the provisions relevant to the certification scheme.",
-    "p2": "Use the certification received only within the scope of certification that has been granted.",
-    "p3": "Not misuse the certification or certificate in any way that may harm LSP PPSDM MIGAS.",
-    "p4": "Not make statements related to the certification that are considered misleading or unaccountable by LSP PPSDM MIGAS.",
-    "p5": "Not use the certificate in a misleading manner.",
-    "p6": "Not disclose confidential information to other parties without the permission of the employer or service user.",
-    "p7": "In the event of an alleged violation of this declaration, agree to be examined in accordance with applicable regulations.",
-    "p8": "If proven to have violated this declaration, accept all consequences, including suspension or revocation of the certificate.",
-    "p9": "Cease using all claims or acknowledgments referring to LSP PPSDM MIGAS or its certification if the certificate is suspended or revoked, and return the certificate issued by LSP PPSDM MIGAS.",
-    "p10": "Report to LSP PPSDM MIGAS if, during the validity period of the certificate, there are changes in health conditions or personal capability that result in the certification holder no longer meeting the required qualifications.",
-    "switchLabel": "Do you agree with all of the statements above?"
-  },
   "cameraCode": {
     "timer": "You will be redirected to the main page in",
     "openCam": "Opening Camera...",
@@ -91,7 +62,8 @@
     "codeInput": "Or you can type your participant code inside form below",
     "codeForm": "Participant Exam Code",
     "finding": "Looking for Participant",
-    "patience": "Please be patience"
+    "patience": "Please be patience",
+    "empty": "Participant Exam Code cannot empty"
   },
   "cameraBio": {
     "title": "Participant Personal Data Confirmation",
@@ -114,6 +86,24 @@
     "form": "Password",
     "start": "Start Exam",
     "toExam": "Bringing You to the Exam Page..."
+  },
+  "cameraAgree": {
+    "title": "Certificate Holder Agreement",
+    "wrong": "Disagree",
+    "next": "I Agree",
+    "mustAgree": "You must agree to all statements before continuing",
+    "preamble": "I, as a holder of a competency certificate from LSP PPSDM MIGAS, hereby declare that I will:",
+    "p1": "Comply with the provisions relevant to the certification scheme.",
+    "p2": "Use the certification received only within the scope of certification that has been granted.",
+    "p3": "Not misuse the certification or certificate in any way that may harm LSP PPSDM MIGAS.",
+    "p4": "Not make statements related to the certification that are considered misleading or unaccountable by LSP PPSDM MIGAS.",
+    "p5": "Not use the certificate in a misleading manner.",
+    "p6": "Not disclose confidential information to other parties without the permission of the employer or service user.",
+    "p7": "In the event of an alleged violation of this declaration, agree to be examined in accordance with applicable regulations.",
+    "p8": "If proven to have violated this declaration, accept all consequences, including suspension or revocation of the certificate.",
+    "p9": "Cease using all claims or acknowledgments referring to LSP PPSDM MIGAS or its certification if the certificate is suspended or revoked, and return the certificate issued by LSP PPSDM MIGAS.",
+    "p10": "Report to LSP PPSDM MIGAS if, during the validity period of the certificate, there are changes in health conditions or personal capability that result in the certification holder no longer meeting the required qualifications.",
+    "switchLabel": "Do you agree with all of the statements above?"
   },
   "exam": {
     "load": "Please be patient, calm, don't panic, and don't forget to pray",
@@ -140,16 +130,19 @@
     "quest": {
       "load": "Retrieving the question content... Please wait a moment :D",
       "num": "Question Number",
+      "report": "Report Question",
       "commandPick": "Please pick one of the options by clicking at the card.",
       "optionPicked": "Option that you pick marked with",
       "optionNote": "You can give note to the option by clicking at button with sign",
       "essayIntro": "Please write your answer in form below. The answer would not be saved if you didn't click at",
       "essayCont": "button.",
+      "fileIntro": "Please upload your answer using form below. The answer would not be saved if you didn't click at",
       "yourAns": "Your Answer"
     },
     "number": {
       "list": "List of Questions",
-      "calc": "Calculator"
+      "calc": "Calculator",
+      "progress": "{unanswered} out of {total} questions are unanswered"
     },
     "note": {
       "modalTitle": "Manage Option Note",
@@ -164,7 +157,15 @@
       "allDone": "All have been answered",
       "warning": "Are you sure you want to end the exam now? Once you exit, you will not be able to change your answers anymore.",
       "afterWarning": "Please check your exam card and belongings to make sure nothing is left behind before leaving the exam room :)",
-      "storing": "Storing your exam data :D"
+      "storing": "Storing your exam data :D",
+      "preConfirm2Title": "Wait — You Still Have Unanswered Questions!",
+      "preConfirm2Body": "You have {n} unanswered question(s) with more than 5 minutes left. Are you sure you want to submit?",
+      "preConfirm3Title": "This Cannot Be Undone",
+      "preConfirm3Body": "{n} question(s) will be permanently blank. Your certification depends on this. Are you absolutely certain?",
+      "noGoBack": "No, Continue Exam",
+      "yesFinish1": "Yes, I Still Want to Finish",
+      "yesFinish2": "Yes, Submit Now",
+      "finalDelay": "Wait {sec} second | Wait {sec} seconds"
     },
     "eval": {
       "bring": "Bringing You to the Exam Page",

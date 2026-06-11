@@ -1,5 +1,6 @@
 <script setup>
-import {ref, computed, reactive, onMounted, nextTick, onUnmounted} from 'vue'
+import { useI18n } from 'vue-i18n';
+import { ref, computed, reactive, watch, onMounted, nextTick, onUnmounted } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueMathjax from 'vue-mathjax-next';
 import NavBar from '@/components/Navs/NavBar.vue';
@@ -22,7 +23,6 @@ import { useRouter } from "vue-router";
 import { TabGroup, TabPanel, TabPanels } from '@headlessui/vue';
 import TabButtons from '@/components/Tabs/TabButtons.vue';
 import { faCalculator, faListOl } from '@fortawesome/free-solid-svg-icons';
-import {useI18n} from "vue-i18n";
 import PingTest from "@/views/PingTest.vue";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import {translateDateRange} from "../assets/js/Mixins/TreeShake/dateTime.js";
@@ -30,13 +30,21 @@ import {nthAlphabet} from "@/assets/js/Mixins/TreeShake/alphaNumeric.js";
 import {defaultDarkModeCheck} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
 import TheCalculator from "@/views/Component/TheCalculator.vue";
 
+const { t } = useI18n({ useScope: 'global' });
+
 const ping = ref('');
 const toast = ref(null);
 const nav = ref(null);
-const { t, locale } = useI18n();
+
+
 const router = useRouter();
 
+function manualPushToast(content) {
+  toast.value.pushIntoQueue(content);
+}
+
 const userActions = ref([]);
+
 const pushAction = (action, latency, httpStatus) => {
   userActions.value.push({
     time: new Date().toISOString(),
@@ -46,10 +54,6 @@ const pushAction = (action, latency, httpStatus) => {
   });
   localStorage.setItem('userActions', JSON.stringify(userActions.value));
 };
-
-function manualPushToast(content) {
-  toast.value.pushIntoQueue(content);
-}
 
 const fallbackImageUrl = 'https://placehold.co/400x600';
 
@@ -62,6 +66,44 @@ const confirmEnd = reactive({
     message: '',
   },
 });
+
+const preConfirm2 = reactive({ open: false });
+const preConfirm3 = reactive({ open: false });
+
+const finalDelayCount = ref(0);
+let finalDelayInterval = null;
+
+watch(
+  () => preConfirm3.open,
+  (opened) => {
+    if (opened) {
+      finalDelayCount.value = 10;
+      finalDelayInterval = setInterval(() => {
+        finalDelayCount.value -= 1;
+        if (finalDelayCount.value <= 0) {
+          clearInterval(finalDelayInterval);
+        }
+      }, 1000);
+    } else {
+      clearInterval(finalDelayInterval);
+      finalDelayCount.value = 0;
+    }
+  },
+);
+
+const closeAll = () => {
+  confirmEnd.open = false;
+  preConfirm2.open = false;
+  preConfirm3.open = false;
+};
+
+const handleFinishButton = () => {
+  if (unansweredQuestions.value > 0 && timer.value > 300000) {
+    preConfirm2.open = true;
+  } else {
+    finishExam();
+  }
+};
 
 const examDetail = reactive({
   loadStatus: 0,
@@ -110,9 +152,9 @@ const goToEvaluation = () => {
     router.push({
       name: 'eval',
       params: {
-        pid: examDetail.data.certification_participant.certification_participant_id,
         sid: examDetail.data.certification_schedule.certification_schedule_id,
-      }
+        pid: examDetail.data.certification_participant.certification_participant_id,
+      },
     });
   }
 };
@@ -232,7 +274,7 @@ const selectOption = async (optionId, num) => {
   const opt = num + 1;
   const qNum = questionDetail.index + 1;
   manualPushToast({
-    content: t('exam.warning.initAns', {ans: opt, num: qNum}),
+    content: `${t('exam.warning.initAns', { ans: opt, num: qNum })}...`,
     type: 'x',
     duration: 3,
     icon: 'cloud-arrow-up',
@@ -254,14 +296,14 @@ const selectOption = async (optionId, num) => {
         }
       });
       manualPushToast({
-        content: t('exam.warning.successAns', {ans: opt, num: qNum}),
+        content: `${t('exam.warning.successAns', { ans: opt, num: qNum })}...`,
         type: 'success',
       });
       pushAction('submit_ans', Date.now() - start, 200);
     })
     .catch((error) => {
       manualPushToast({
-        title: t('exam.warning.faultAns', {ans: opt, num: qNum}),
+        title: `${t('exam.warning.faultAns', { ans: opt, num: qNum })}`,
         content: error.message,
         type: 'danger',
       });
@@ -306,7 +348,7 @@ const openCamera = async () => {
     return;
   }
   try {
-    video.value.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
+    video.value.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
   } catch (error) {
     console.error('Error accessing camera:', error);
   }
@@ -408,7 +450,6 @@ const addNote = async () => {
 
 const removeNote = async () => {
   const start = Date.now();
-
   await examReq
     .setBody({
       participant_exam_question_id: questionDetail.data.participant_exam_question_id,
@@ -436,12 +477,11 @@ const removeNote = async () => {
         type: 'danger',
       });
       pushAction('del_note', Date.now() - start, error.response.status);
-
     });
 };
 
 const stringClock = computed(() => {
-  const {h, m, s} = timerTime;
+  const { h, m, s } = timerTime;
 
   if (h > 0) return `${ t('exam.timer.hour', { n: h }) } ${ t('exam.timer.min', { n: m }) } ${ t('exam.timer.sec', { n: s }) }`;
   if (m > 0) return `${ t('exam.timer.min', { n: m }) } ${ t('exam.timer.sec', { n: s }) }`;
@@ -477,7 +517,8 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  getCurrentWindow().setFullscreen(false);
+  const isInsite = localStorage.getItem('internalMode') === 'insite';
+  if (!isInsite) getCurrentWindow().setFullscreen(false);
   getCurrentWindow().setAlwaysOnTop(false);
   clearInterval(timerInterval);
 });
@@ -485,7 +526,7 @@ onUnmounted(() => {
 
 <template>
   <div class="min-h-screen bg-light dark:bg-dark">
-    <ToastContainer ref="toast"/>
+    <ToastContainer ref="toast" />
 
     <NavBar>
       <template #header>
@@ -520,10 +561,12 @@ onUnmounted(() => {
                 <p class="text-sm">{{ examDetail.data.scheme.name ?? '-' }}</p>
                 <h2>{{ examDetail.data.scheme_level?.name || '-' }}</h2>
                 <p class="text-xs">
-                  <span v-if="examDetail.data.certification_schedule.type === 'regular'">{{ t('exam.header.typeRegular') }}</span>
+                  <span v-if="examDetail.data.certification_schedule.type === 'regular'">{{
+                    t('exam.header.typeRegular')
+                  }}</span>
                   <span v-else>{{
-                      examDetail.data.certification_schedule.company_name ?? t('exam.header.typePartnership')
-                    }}</span>
+                    examDetail.data.certification_schedule.company_name ?? t('exam.header.typePartnership')
+                  }}</span>
                   -
                   {{
                     translateDateRange(
@@ -548,8 +591,9 @@ onUnmounted(() => {
                   :participant-id="examDetail.data.certification_participant.certification_participant_id"
                 />
               </div>
-              <div class="bg-blue-600 text-white px-4 py-3 rounded-xl">
-                <div class="w-full flex items-center gap-2">
+
+              <div class="px-4 py-3 text-white bg-blue-600 rounded-xl">
+                <div class="flex items-center w-full gap-2">
                   <div class="w-full text-right">
                     <p class="text-xs italic font-extrabold">{{ t('exam.header.timer') }}</p>
                     <p class="text-xl">{{ formattedTimer }}</p>
@@ -566,7 +610,7 @@ onUnmounted(() => {
         <!-- Notification Waktu Hampir Habis -->
         <div
           v-if="([15, 10].includes(timerTime.m) || timerTime.m < 5) && timerTime.h < 1"
-          class="mx-4 py-2 px-3 bg-red-600 rounded-b-xl text-white text-sm"
+          class="px-3 py-2 mx-4 text-sm text-white bg-red-600 rounded-b-xl"
         >
           <div class="flex gap-2">
             <div class="flex items-center">
@@ -576,26 +620,10 @@ onUnmounted(() => {
               <p v-if="[15, 10].includes(timerTime.m) && timerTime.h < 1">
                 {{ t('exam.timer.1st', { time: timerTime.m }) }}
               </p>
-              <div v-else>
-                <p v-if="timerTime.m > 1">
-                  {{
-                    t('exam.timer.2nd', {
-                      m: timerTime.m,
-                      s: timerTime.s,
-                      min: t('exam.timer.min', { n: timerTime.m }),
-                      sec: t('exam.timer.sec', { n: timerTime.s })
-                    })
-                  }}
-                </p>
-                <p v-else>
-                  {{
-                    t('exam.timer.3rd', {
-                      s: timerTime.s,
-                      sec: t('exam.timer.sec', { n: timerTime.s })
-                    })
-                  }}
-                </p>
-              </div>
+              <p v-else>
+                <span v-if="timerTime.m > 0">{{ t('exam.timer.2nd', { m: timerTime.m, s: timerTime.s }) }}</span>
+                {{ t('exam.timer.3rd', { s: timerTime.s }) }}
+              </p>
             </div>
           </div>
         </div>
@@ -624,15 +652,26 @@ onUnmounted(() => {
               <!-- Atribut soal -->
               <div class="grid grid-cols-1 gap-2">
                 <BasicCard v-if="questionDetail.data.exam_question_attribute">
-                  <h4>{{ questionDetail.data.exam_question_attribute.command }}</h4>
-                  <vue-mathjax :formula="questionDetail.data.exam_question_attribute.content" :safe="false"/>
+                  <div class="no-copy">
+                    <h4>{{ questionDetail.data.exam_question_attribute.command }}</h4>
+                    <vue-mathjax :formula="questionDetail.data.exam_question_attribute.content" :safe="false" />
+                  </div>
                 </BasicCard>
 
                 <!-- Soal -->
                 <BasicCard>
                   <div>
-                    <h3>{{ t('exam.quest.num') }} {{ questionDetail.index + 1 }}</h3>
-                    <vue-mathjax :formula="questionDetail.data.question" :safe="false"/>
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                      <h3>{{ t('exam.quest.num') }} {{ questionDetail.index + 1 }}</h3>
+                      <div>
+                        <BasicButton v-show="false" color="red" icon="flag" small>{{
+                          t('exam.quest.report')
+                        }}</BasicButton>
+                      </div>
+                    </div>
+                    <div class="no-copy">
+                      <vue-mathjax :formula="questionDetail.data.question" :safe="false" />
+                    </div>
                   </div>
                 </BasicCard>
 
@@ -644,8 +683,7 @@ onUnmounted(() => {
                       {{ t('exam.quest.optionPicked') }}
                       <font-awesome-icon icon="check" class="mx-1"></font-awesome-icon>
                       . {{ t('exam.quest.optionNote') }}
-                      <font-awesome-icon icon="comment" class="mx-1">
-                      </font-awesome-icon>
+                      <font-awesome-icon icon="comment" class="mx-1"> </font-awesome-icon>
                     </p>
                   </div>
                   <div class="grid grid-cols-1 gap-4">
@@ -653,26 +691,26 @@ onUnmounted(() => {
                       v-for="(option, num) in questionDetail.data.options"
                       :alphabet="nthAlphabet(num)"
                       :key="option.id"
-                      class="cursor-pointer"
+                      class="cursor-pointer no-copy"
                       :notes="option.note"
                       :selected="option.is_chosen"
                       @pick-answer="selectOption(option.id, num)"
                       @click-note="openNotesModal(option.note, option.id)"
                     >
                       <!-- cek jika jawaban dipilih -->
-                      <vue-mathjax :formula="option.option" :safe="false"/>
+                      <vue-mathjax :formula="option.option" :safe="false" />
                     </AnswerCard>
                   </div>
                 </BasicCard>
 
                 <!-- Field jawaban Uraian -->
                 <BasicCard v-else>
-                  <p class="text-xs italic text-center mb-4">
+                  <p class="mb-4 text-xs italic text-center">
                     {{ t('exam.quest.essayIntro') }}
                     <span class="font-extrabold text-green-500">{{ t('button.sendAns') }}.</span> {{ t('exam.quest.essayCont') }}
                   </p>
-                  <FormQuill :label="t('exam.quest.yourAns')" v-model="questionDetail.data.freetext_answer"/>
-                  <div class="btn-group mt-2">
+                  <FormQuill v-model="questionDetail.data.freetext_answer" :label="t('exam.quest.yourAns')" />
+                  <div class="mt-2 btn-group">
                     <BasicButton icon="paper-plane" color="green" expanded @click="descriptionAnswer">
                       {{ t('button.sendAns') }}
                     </BasicButton>
@@ -681,17 +719,17 @@ onUnmounted(() => {
               </div>
 
               <!-- Kontrol jawaban yang ada dibawah soal -->
-              <div class="flex stretch-flex gap-4">
+              <div class="flex gap-4 stretch-flex">
                 <BasicButton
                   color="primary"
                   icon="angles-left"
                   :disabled="questionDetail.index === 0"
                   @click="
-                  getQuestionDetailByNumber(
-                    (questionDetail.index -= 1),
-                    examDetail.data.questions[questionDetail.index].id
-                  )
-                "
+                    getQuestionDetailByNumber(
+                      (questionDetail.index -= 1),
+                      examDetail.data.questions[questionDetail.index].id,
+                    )
+                  "
                 >
                   {{ t('button.prev') }}
                 </BasicButton>
@@ -701,11 +739,11 @@ onUnmounted(() => {
                   icon="angles-right"
                   :disabled="questionDetail.index === examDetail.data.questions.length - 1"
                   @click="
-                  getQuestionDetailByNumber(
-                    (questionDetail.index += 1),
-                    examDetail.data.questions[questionDetail.index].id
-                  )
-                "
+                    getQuestionDetailByNumber(
+                      (questionDetail.index += 1),
+                      examDetail.data.questions[questionDetail.index].id,
+                    )
+                  "
                 >
                   {{ t('button.next') }}
                 </BasicButton>
@@ -717,8 +755,8 @@ onUnmounted(() => {
           <div>
             <div class="grid grid-cols-1 gap-2">
               <!-- Timer dan Kamera -->
-              <div class="bg-secondary dark:bg-secondary-dark text-center w-full px-2 py-2 rounded-xl">
-                <div class="all-center flex-grow-0 flex-shrink-0">
+              <div class="w-full px-2 py-2 text-center bg-secondary dark:bg-secondary-dark rounded-xl">
+                <div class="flex-grow-0 flex-shrink-0 all-center">
                   <div class="flex flex-row gap-2">
                     <img
                       :src="examDetail.data.certification_participant.participant_photo_url"
@@ -727,11 +765,11 @@ onUnmounted(() => {
                       @error="examDetail.data.certification_participant.participant_photo_url = fallbackImageUrl"
                     />
 
-                    <div class="h-24 rounded-lg flex-shrink-0 relative overflow-hidden">
+                    <div class="relative flex-shrink-0 h-24 overflow-hidden rounded-lg">
                       <video ref="video" autoplay muted class="h-24"></video>
 
-                      <div class="flex absolute right-1 top-1 animate-pulse">
-                        <div class="badge badge-icon danger text-xs">
+                      <div class="absolute flex right-1 top-1 animate-pulse">
+                        <div class="text-xs badge badge-icon danger">
                           <font-awesome-icon icon="video"></font-awesome-icon>
                           Live
                         </div>
@@ -753,7 +791,29 @@ onUnmounted(() => {
                         <p class="text-sm font-extrabold text-center">{{ t('exam.number.list') }}</p>
                       </template>
 
-                      <div class="flex flex-wrap gap-3 cursor-pointer">
+                      <div class="bg-gray-200/50 dark:bg-gray-800/50 rounded-xl flex items-center gap-2 px-4 py-2">
+                        <div>
+                          <font-awesome-icon size="xl" icon="file-pen"></font-awesome-icon>
+                        </div>
+                        <div class="flex-1 text-left">
+                          <p class="text-xs italic">{{ t('exam.finish.questRemain') }}</p>
+                          <p class="font-extrabold text-red-500">
+                            <template v-if="unansweredQuestions > 0">
+                              {{
+                                t('exam.number.progress', {
+                                  unanswered: unansweredQuestions,
+                                  total: examDetail.data.questions.length,
+                                })
+                              }}
+                            </template>
+                            <template v-else>
+                              <span class="font-extrabold text-green-500">{{ t('exam.finish.allDone') }}</span>
+                            </template>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-wrap gap-3 cursor-pointer mt-4">
                         <NumberButton
                           v-for="(question, index) in examDetail.data.questions"
                           :key="question.id"
@@ -811,6 +871,7 @@ onUnmounted(() => {
       </template>
     </DialogModal>
 
+    <!-- Confirmation 1 -->
     <ConfirmationModal
       :show="confirmEnd.open"
       :closeable="timer > 0"
@@ -822,15 +883,15 @@ onUnmounted(() => {
         {{ timer > 0 ? t('exam.finish.titleEarly') : t('exam.finish.titleFinishing') }}
       </template>
       <template #content>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
           <BasicCard no-animate>
             <div class="flex items-center gap-2">
               <div class="w-14">
                 <font-awesome-icon size="2xl" icon="stopwatch"></font-awesome-icon>
               </div>
-              <div class="text-left w-full">
-                <p class="italic text-sm">{{ t('exam.header.timer') }}</p>
-                <p class="text-red-500 font-extrabold text-xl">
+              <div class="w-full text-left">
+                <p class="text-sm italic">{{ t('exam.header.timer') }}</p>
+                <p class="text-xl font-extrabold text-red-500">
                   {{ stringClock }}
                 </p>
               </div>
@@ -842,13 +903,16 @@ onUnmounted(() => {
               <div class="w-14">
                 <font-awesome-icon size="2xl" icon="file-pen"></font-awesome-icon>
               </div>
-              <div class="text-left w-full">
-                <p class="italic text-sm">{{ t('exam.finish.questRemain') }}</p>
-                <p class="text-red-500 font-extrabold text-xl">
+              <div class="w-full text-left">
+                <p class="text-sm italic">{{ t('exam.finish.questRemain') }}</p>
+                <p class="text-xl font-extrabold text-red-500">
                   <template v-if="unansweredQuestions > 0">
-                    <span class="text-red-500 font-extrabold">{{ unansweredQuestions }}</span> {{ t('exam.finish.unanswered') }}
+                    <span class="font-extrabold text-red-500">{{ unansweredQuestions }}</span>
+                    {{ t('exam.finish.unanswered') }}
                   </template>
-                  <template v-else><span class="text-green-500 font-extrabold">{{ t('exam.finish.allDone') }}</span></template>
+                  <template v-else>
+                    <span class="font-extrabold text-green-500">{{ t('exam.finish.allDone') }}</span>
+                  </template>
                 </p>
               </div>
             </div>
@@ -869,7 +933,9 @@ onUnmounted(() => {
             <p class="text-sm">{{ confirmEnd.error.code }}</p>
           </BasicCard>
         </div>
-        <p v-else-if="confirmEnd.loadStatus === 1 && timer > 0">{{ t('exam.finish.warning') }}</p>
+        <p v-else-if="confirmEnd.loadStatus === 1 && timer > 0">
+          {{ t('exam.finish.warning') }}
+        </p>
       </template>
       <template #footer>
         <BasicButton
@@ -877,7 +943,7 @@ onUnmounted(() => {
           :disabled="confirmEnd.loadStatus === 0"
           icon="times"
           color="green"
-          @click="confirmEnd.open = false"
+          @click="closeAll()"
         >
           {{ t('button.contExam') }}
         </BasicButton>
@@ -885,19 +951,94 @@ onUnmounted(() => {
           :on-loading="confirmEnd.loadStatus === 0"
           icon="flag-checkered"
           color="red"
-          @click="finishExam"
+          @click="handleFinishButton"
         >
           {{ t('button.finishExam') }}
         </BasicButton>
       </template>
     </ConfirmationModal>
 
-    <ConfirmationModal :show="confirmEnd.loadStatus === 2" :use-img="truckGif" :closeable="false">
+    <!-- Confirmation 2 — Are you sure? (shown when unanswered > 0 && timer > 5 min) -->
+    <ConfirmationModal
+      :show="preConfirm2.open"
+      :closeable="false"
+      use-fa="exclamation-triangle"
+      icon-color="bg-yellow-500"
+      @close="closeAll()"
+    >
+      <template #title>{{ t('exam.finish.preConfirm2Title') }}</template>
+      <template #content>
+        <BasicCard no-animate>
+          <div class="flex items-center gap-2">
+            <div class="w-14">
+              <font-awesome-icon size="2xl" icon="file-pen"></font-awesome-icon>
+            </div>
+            <div class="w-full text-left">
+              <p class="text-sm italic">{{ t('exam.finish.questRemain') }}</p>
+              <p class="text-2xl font-extrabold text-red-500">
+                {{ unansweredQuestions }} {{ t('exam.finish.unanswered') }}
+              </p>
+            </div>
+          </div>
+        </BasicCard>
+        <p class="mt-4 text-sm">{{ t('exam.finish.preConfirm2Body', { n: unansweredQuestions }) }}</p>
+      </template>
+      <template #footer>
+        <BasicButton icon="times" color="green" @click="closeAll()">
+          {{ t('exam.finish.noGoBack') }}
+        </BasicButton>
+        <BasicButton icon="flag-checkered" color="red" @click="preConfirm3.open = true">
+          {{ t('exam.finish.yesFinish1') }}
+        </BasicButton>
+      </template>
+    </ConfirmationModal>
+
+    <!-- Confirmation 3 — Are you REALLY sure? -->
+    <ConfirmationModal
+      :show="preConfirm3.open"
+      :closeable="false"
+      :use-img="downtimeGif"
+      icon-color="bg-red-600"
+      @close="closeAll()"
+    >
+      <template #title>{{ t('exam.finish.preConfirm3Title') }}</template>
+      <template #content>
+        <BasicCard no-animate>
+          <div class="flex items-center gap-2">
+            <div class="w-14">
+              <font-awesome-icon size="3x" icon="file-pen" class="text-red-500"></font-awesome-icon>
+            </div>
+            <div class="w-full text-left">
+              <p class="text-sm italic">{{ t('exam.finish.questRemain') }}</p>
+              <p class="text-3xl font-black text-red-500">
+                {{ unansweredQuestions }} {{ t('exam.finish.unanswered') }}
+              </p>
+            </div>
+          </div>
+        </BasicCard>
+        <p class="mt-4 text-sm font-semibold">{{ t('exam.finish.preConfirm3Body', { n: unansweredQuestions }) }}</p>
+      </template>
+      <template #footer>
+        <BasicButton icon="times" color="green" @click="closeAll()">
+          {{ t('exam.finish.noGoBack') }}
+        </BasicButton>
+        <BasicButton
+          icon="flag-checkered"
+          color="red"
+          :disabled="finalDelayCount > 0"
+          @click="finishExam()"
+        >
+          {{ finalDelayCount > 0 ? t('exam.finish.finalDelay', { sec: finalDelayCount }, finalDelayCount) : t('exam.finish.yesFinish2') }}
+        </BasicButton>
+      </template>
+    </ConfirmationModal>
+
+    <ConfirmationModal :show="confirmEnd.loadStatus === 2" use-img="/img/gif/truck-whoosh.gif" :closeable="false">
       <template #title>{{ t('exam.eval.bring') }}</template>
       <template #content>
         <div>
           <p>{{ t('exam.eval.intro') }}</p>
-          <div class="text-left p-4">
+          <div class="p-4 text-left">
             <ul>
               <li>{{ t('exam.eval.1st') }}</li>
               <li>{{ t('exam.eval.2nd') }}</li>
@@ -909,4 +1050,10 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+</style>

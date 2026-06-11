@@ -28,18 +28,7 @@
     "close": "Tutup",
     "cancel": "Batalkan Mematikan Perangkat",
     "cancelTimer": "Akan mati pada",
-    "commandShutdown": "Anda telah memerintahkan perangkat anda untuk mematikan daya",
-    "hiddenSettings": "Pengaturan Tersembunyi",
-    "hiddenSettingsDesc": "Buka kunci untuk mengakses konfigurasi lanjutan",
-    "mode": "Mode",
-    "modeInsite": "Internal (Insite)",
-    "modeExternal": "External",
-    "countdownAction": "Aksi Countdown",
-    "countdownActionDesc": "Yang dilakukan saat timer otomatis habis",
-    "actionSleep": "Sleep",
-    "actionHibernate": "Hibernate",
-    "shutdownTimer": "Timer Countdown (menit)",
-    "shutdownTimerNote": "Set ke 0 untuk menonaktifkan aksi otomatis"
+    "commandShutdown": "Anda telah memerintahkan perangkat anda untuk mematikan daya"
   },
   "landing": {
     "todaySchedules": "Jadwal Sertifikasi Hari Ini",
@@ -60,24 +49,6 @@
     "browserSupport": "Stream API tidak didukung oleh browser ini :(",
     "insecure": "Hanya diizinkan menggunakan kamera ketika menggunakan HTTPS"
   },
-  "cameraAgree": {
-    "title": "Pernyataan Pemegang Sertifikat",
-    "wrong": "Tidak Setuju",
-    "next": "Saya Setuju",
-    "mustAgree": "Anda harus menyetujui semua pernyataan sebelum melanjutkan",
-    "preamble": "Saya, sebagai pemegang sertifikat kompetensi LSP PPSDM MIGAS menyatakan:",
-    "p1": "Mematuhi ketentuan yang relevan dalam skema sertifikasi.",
-    "p2": "Sertifikasi yang diterima hanya digunakan untuk ruang lingkup sertifikasi yang telah diberikan.",
-    "p3": "Tidak menyalahgunakan sertifikasi dan sertifikat yang dapat merugikan LSP PPSDM MIGAS.",
-    "p4": "Tidak membuat pernyataan terkait sertifikasi yang oleh LSP PPSDM MIGAS dianggap menyesatkan atau tidak dapat dipertanggung jawabkan.",
-    "p5": "Tidak menggunakan sertifikat dengan cara yang menyesatkan.",
-    "p6": "Tidak memberikan informasi yang bersifat rahasia kepada pihak lain tanpa seizin pemberi kerja pemakai jasa.",
-    "p7": "Dalam hal adanya dugaan pelanggaran terhadap pernyataan ini maka saya bersedia untuk diperiksa sesuai dengan peraturan yang berlaku.",
-    "p8": "Jika terbukti melakukan pelanggaran terhadap pernyataan ini maka saya menerima segala konsekuensi termasuk pembekuan atau pencabutan sertifikat.",
-    "p9": "Menghentikan penggunaan semua pengakuan atas sertifikasi yang merujuk pada LSP PPSDM MIGAS atau sertifikasi LSP PPSDM MIGAS apabila sertifikat dibekukan atau dicabut, dan mengembalikan sertifikat yang diterbitkan LSP PPSDM MIGAS.",
-    "p10": "Melaporkan kepada LSP PPSDM MIGAS jika selama masa berlaku sertifikat terdapat perubahan kondisi kesehatan atau kemampuan person yang menyebabkan tidak terpenuhinya persyaratan pemegang sertifikat.",
-    "switchLabel": "Apakah anda setuju dengan semua pernyataan diatas?"
-  },
   "cameraCode": {
     "timer": "Anda akan kembali ke halaman utama pada",
     "openCam": "Membuka Kamera...",
@@ -91,7 +62,8 @@
     "codeInput": "Atau silahkan masukkan kode peserta anda dalam form berikut",
     "codeForm": "Kode Peserta Ujian",
     "finding": "Mencari Peserta",
-    "patience": "Harap bersabar yaa"
+    "patience": "Harap bersabar yaa",
+    "empty": "Kode peserta tidak boleh kosong"
   },
   "cameraBio": {
     "title": "Konfirmasi Biodata Peserta",
@@ -114,6 +86,24 @@
     "form": "Kata Sandi",
     "start": "Mulai Ujian",
     "toExam": "Membawa anda ke halaman ujian..."
+  },
+  "cameraAgree": {
+    "title": "Pernyataan Pemegang Sertifikat",
+    "wrong": "Tidak Setuju",
+    "next": "Saya Setuju",
+    "mustAgree": "Anda harus menyetujui semua pernyataan sebelum melanjutkan",
+    "preamble": "Saya, sebagai pemegang sertifikat kompetensi LSP PPSDM MIGAS menyatakan:",
+    "p1": "Mematuhi ketentuan yang relevan dalam skema sertifikasi.",
+    "p2": "Sertifikasi yang diterima hanya digunakan untuk ruang lingkup sertifikasi yang telah diberikan.",
+    "p3": "Tidak menyalahgunakan sertifikasi dan sertifikat yang dapat merugikan LSP PPSDM MIGAS.",
+    "p4": "Tidak membuat pernyataan terkait sertifikasi yang oleh LSP PPSDM MIGAS dianggap menyesatkan atau tidak dapat dipertanggung jawabkan.",
+    "p5": "Tidak menggunakan sertifikat dengan cara yang menyesatkan.",
+    "p6": "Tidak memberikan informasi yang bersifat rahasia kepada pihak lain tanpa seizin pemberi kerja pemakai jasa.",
+    "p7": "Dalam hal adanya dugaan pelanggaran terhadap pernyataan ini maka saya bersedia untuk diperiksa sesuai dengan peraturan yang berlaku.",
+    "p8": "Jika terbukti melakukan pelanggaran terhadap pernyataan ini maka saya menerima segala konsekuensi termasuk pembekuan atau pencabutan sertifikat.",
+    "p9": "Menghentikan penggunaan semua pengakuan atas sertifikasi yang merujuk pada LSP PPSDM MIGAS atau sertifikasi LSP PPSDM MIGAS apabila sertifikat dibekukan atau dicabut, dan mengembalikan sertifikat yang diterbitkan LSP PPSDM MIGAS.",
+    "p10": "Melaporkan kepada LSP PPSDM MIGAS jika selama masa berlaku sertifikat terdapat perubahan kondisi kesehatan atau kemampuan person yang menyebabkan tidak terpenuhinya persyaratan pemegang sertifikat.",
+    "switchLabel": "Apakah anda setuju dengan semua pernyataan diatas?"
   },
   "exam": {
     "load": "Harap sabar, tenang, jangan panik, dan jangan lupa berdo'a",
@@ -140,16 +130,19 @@
     "quest": {
       "load": "Mengambil isi soal... Harap tunggu sebentar :D",
       "num": "Soal",
+      "report": "Laporkan Soal",
       "commandPick": "Silahkan pilih salah satu jawaban dengan klik di opsi.",
       "optionPicked": "Jawaban yang anda pilih ditandai dengan",
       "optionNote": "Anda bisa menandai opsi untuk catatan anda dengan menekan tombol",
       "essayIntro": "Silahkan menuliskan jawaban anda di form dibawah. Jawaban belum disimpan apabila anda belum menekan tombol",
       "essayCont": ".",
+      "fileIntro": "Silahkan mengunggah jawaban anda dengan menggunakan form dibawah. Jawaban belum disimpan apabila anda belum menekan tombol",
       "yourAns": "Jawaban Anda"
     },
     "number": {
       "list": "Daftar Soal",
-      "calc": "Kalkulator"
+      "calc": "Kalkulator",
+      "progress": "{unanswered} dari {total} pertanyaan belum dijawab"
     },
     "note": {
       "modalTitle": "Kelola Catatan Jawaban",
@@ -164,7 +157,15 @@
       "allDone": "Semua sudah dijawab",
       "warning": "Apakah anda yakin untuk mengakhiri ujian sekarang? Setelah anda keluar, anda tidak bisa merubah jawaban lagi.",
       "afterWarning": "Harap perhatikan kartu ujian dan barang bawaan anda tidak tertinggal sebelum meninggalkan ruang ujian :)",
-      "storing": "Menyimpan data ujian anda :D"
+      "storing": "Menyimpan data ujian anda :D",
+      "preConfirm2Title": "Tunggu — Anda Masih Punya Soal yang Belum Dijawab!",
+      "preConfirm2Body": "Anda masih memiliki {n} soal yang belum dijawab dan waktu tersisa lebih dari 5 menit. Apakah Anda yakin ingin mengakhiri ujian?",
+      "preConfirm3Title": "Ini Tidak Bisa Dibatalkan",
+      "preConfirm3Body": "{n} soal akan kosong selamanya. Sertifikasi Anda bergantung pada ini. Apakah Anda benar-benar yakin?",
+      "noGoBack": "Tidak, Lanjutkan Ujian",
+      "yesFinish1": "Ya, Saya Tetap Ingin Selesai",
+      "yesFinish2": "Ya, AKHIRI Sekarang",
+      "finalDelay": "Tunggu {sec} detik"
     },
     "eval": {
       "bring": "Membawa ke Halaman Evaluasi",
