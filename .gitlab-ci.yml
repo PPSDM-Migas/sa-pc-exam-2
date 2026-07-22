@@ -1,0 +1,147 @@
+# .gitlab-ci.yml
+# Adapted from .github/workflows/release.yml
+# Triggers on v* tags — push a tag like: git tag v1.0.0 && git push --tags
+
+stages:
+  - release
+
+# ─── Shared base for all platform jobs ────────────────────────────────────────
+
+.tauri-release-base:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v/
+  variables:
+    # ⚠ Update TAURI_ACTION_PROJECT to your actual tauri-action path (URL-encoded slash)
+    # e.g. if the repo is at gitlab.example.com/mygroup/tauri-action → mygroup%2Ftauri-action
+    TAURI_ACTION_PROJECT: "YOUR_GROUP%2Ftauri-action"
+    TAURI_ACTION_REF: "main"
+
+    # tauri-action inputs
+    GITLAB_OUTPUT_FILE: "tauri-outputs.env"
+    TAURI_TAG_NAME: "$CI_COMMIT_TAG"
+    TAURI_RELEASE_NAME: "sa-pc-exam $CI_COMMIT_TAG"
+    TAURI_RELEASE_BODY: "https://layanan.ppsdmmigas.id/appujian/$CI_COMMIT_TAG/releasenote"
+    TAURI_UPLOAD_UPDATER_JSON: "true"
+    TAURI_UPDATER_JSON_PREFER_NSIS: "true"
+    TAURI_UPLOAD_UPDATER_SIGNATURES: "true"
+    TAURI_PRERELEASE: "false"
+
+    # App env vars — set these as masked CI/CD variables in project Settings → CI/CD → Variables
+    # GITLAB_TOKEN, TAURI_SIGNING_PRIVATE_KEY, TAURI_SIGNING_PRIVATE_KEY_PASSWORD
+    # VERDACCIO_TOKEN, VITE_BASE_API, VITE_EVAL_URL, VITE_EVL
+    # VITE_POR, VITE_POR_TOKEN, VITE_WS, VITE_WS_PING
+  script:
+    - node tauri-action.js
+  artifacts:
+    when: always
+    reports:
+      dotenv: tauri-outputs.env
+    paths:
+      - "**/*.dmg"
+      - "**/*.app.tar.gz"
+      - "**/*.app.tar.gz.sig"
+      - "**/*.deb"
+      - "**/*.deb.sig"
+      - "**/*.rpm"
+      - "**/*.rpm.sig"
+      - "**/*.AppImage"
+      - "**/*.AppImage.tar.gz"
+      - "**/*.AppImage.tar.gz.sig"
+      - "**/*.exe"
+      - "**/*.exe.sig"
+      - "**/*.msi"
+      - "**/*.msi.sig"
+      - "**/*.nsis.zip"
+      - "**/*.nsis.zip.sig"
+
+# ─── Linux ────────────────────────────────────────────────────────────────────
+# Uses a Docker image — the runner must have Docker executor configured
+
+release-linux:
+  extends: .tauri-release-base
+  image: node:24
+  variables:
+    TAURI_ARGS: ""
+    # Point Cargo home inside the project dir so GitLab can cache it
+    CARGO_HOME: "$CI_PROJECT_DIR/.cargo"
+  before_script:
+    # Download the tauri-action bundled script
+    - curl -fsSL "${CI_SERVER_URL}/api/v4/projects/${TAURI_ACTION_PROJECT}/repository/files/dist%2Findex.js/raw?ref=${TAURI_ACTION_REF}"
+        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -o tauri-action.js
+    # Tauri system dependencies for Linux
+    - sudo apt-get update
+    - sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+    # Install Rust (not in the node:24 image)
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+    - source "$CARGO_HOME/env"
+    # Private npm registry auth
+    - echo "//js.pkg.ppsdmmigas.id/:_authToken=${VERDACCIO_TOKEN}" >> .npmrc
+    - npm install
+  cache:
+    key: "rust-linux-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .cargo/registry/
+      - .cargo/git/
+      - src-tauri/target/
+
+# ─── macOS — Apple Silicon (aarch64) ─────────────────────────────────────────
+# Requires a macOS GitLab runner with shell executor, Rust and Node pre-installed
+# ⚠ Update the tag below to match your macOS runner's tag
+
+release-macos-arm:
+  extends: .tauri-release-base
+  tags:
+    - macos
+  variables:
+    TAURI_ARGS: "--target aarch64-apple-darwin"
+  before_script:
+    - curl -fsSL "${CI_SERVER_URL}/api/v4/projects/${TAURI_ACTION_PROJECT}/repository/files/dist%2Findex.js/raw?ref=${TAURI_ACTION_REF}"
+        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -o tauri-action.js
+    - rustup target add aarch64-apple-darwin x86_64-apple-darwin
+    - echo "//js.pkg.ppsdmmigas.id/:_authToken=${VERDACCIO_TOKEN}" >> .npmrc
+    - npm install
+  cache:
+    key: "rust-macos-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - src-tauri/target/
+
+# ─── macOS — Intel (x86_64) ───────────────────────────────────────────────────
+
+release-macos-x64:
+  extends: .tauri-release-base
+  tags:
+    - macos
+  variables:
+    TAURI_ARGS: "--target x86_64-apple-darwin"
+  before_script:
+    - curl -fsSL "${CI_SERVER_URL}/api/v4/projects/${TAURI_ACTION_PROJECT}/repository/files/dist%2Findex.js/raw?ref=${TAURI_ACTION_REF}"
+        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -o tauri-action.js
+    - rustup target add aarch64-apple-darwin x86_64-apple-darwin
+    - echo "//js.pkg.ppsdmmigas.id/:_authToken=${VERDACCIO_TOKEN}" >> .npmrc
+    - npm install
+  cache:
+    key: "rust-macos-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - src-tauri/target/
+
+# ─── Windows ──────────────────────────────────────────────────────────────────
+# Requires a Windows GitLab runner with shell executor (PowerShell), Rust and Node pre-installed
+# ⚠ Update the tag below to match your Windows runner's tag
+
+release-windows:
+  extends: .tauri-release-base
+  tags:
+    - windows
+  variables:
+    TAURI_ARGS: ""
+  before_script:
+    - curl -fsSL "${CI_SERVER_URL}/api/v4/projects/${TAURI_ACTION_PROJECT}/repository/files/dist%2Findex.js/raw?ref=${TAURI_ACTION_REF}"
+        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" -o tauri-action.js
+    # PowerShell: append to .npmrc
+    - Add-Content -Path .npmrc -Value "//js.pkg.ppsdmmigas.id/:_authToken=$env:VERDACCIO_TOKEN"
+    - npm install
+  cache:
+    key: "rust-windows-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - src-tauri/target/

@@ -1,6 +1,6 @@
 <script setup>
-import ToastContainer from "@/components/Toasts/ToastContainer.vue";
 import {computed, onMounted, ref, watch} from "vue";
+import { pushLegacyToast } from "@/assets/js/Mixins/TreeShake/toast.js";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {mixins} from "@/assets/js/Mixins/mixinDeprecate.js";
 import BasicCard from "@/components/Cards/BasicCard.vue";
@@ -25,9 +25,8 @@ const props = defineProps({
   rightBtnClass: String,
 });
 
-const toast = ref(null);
 function manualPushToast(content) {
-  toast.value.pushIntoQueue(content);
+  pushLegacyToast(content);
 }
 
 const enLang = ref(null);
@@ -55,8 +54,6 @@ watch(enLang, () => {
 
 <template>
   <div :class="`bg-island ${withTimer ? 'blue' : ''} layout-bg-center p-8 overflow-auto`">
-    <ToastContainer ref="toast"/>
-
     <slot />
 
     <!-- The Footer -->

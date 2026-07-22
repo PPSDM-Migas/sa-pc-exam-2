@@ -14,7 +14,6 @@ import FormTextarea from '@/components/Forms/FormTextarea.vue';
 import ConfirmationModal from '@/components/Modals/ConfirmationModal.vue';
 import { examReq } from "@/assets/js/Mixins/Class/Request";
 import LoadingCard from '@/components/Cards/LoadingCard.vue';
-import ToastContainer from '@/components/Toasts/ToastContainer.vue';
 import ErrorLoadCard from '@/components/Cards/Implementations/ErrorLoadCard.vue';
 import downtimeGif from '@/assets/img/gif/downtime.gif';
 import truckGif from '@/assets/img/gif/truck-whoosh.gif';
@@ -28,19 +27,19 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import {translateDateRange} from "../assets/js/Mixins/TreeShake/dateTime.js";
 import {nthAlphabet} from "@/assets/js/Mixins/TreeShake/alphaNumeric.js";
 import {defaultDarkModeCheck} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
+import {pushLegacyToast} from "@/assets/js/Mixins/TreeShake/toast.js";
 import TheCalculator from "@/views/Component/TheCalculator.vue";
 
 const { t } = useI18n({ useScope: 'global' });
 
 const ping = ref('');
-const toast = ref(null);
 const nav = ref(null);
 
 
 const router = useRouter();
 
 function manualPushToast(content) {
-  toast.value.pushIntoQueue(content);
+  pushLegacyToast(content);
 }
 
 const userActions = ref([]);
@@ -526,8 +525,6 @@ onUnmounted(() => {
 
 <template>
   <div class="min-h-screen bg-light dark:bg-dark">
-    <ToastContainer ref="toast" />
-
     <NavBar>
       <template #header>
         <p class="text-sm font-extrabold">{{ t('exam.nav') }}</p>
