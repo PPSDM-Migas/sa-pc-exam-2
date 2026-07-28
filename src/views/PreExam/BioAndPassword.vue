@@ -85,7 +85,7 @@ const startExam = () => {
     .then((res: { data: { content: { participant_exam_session_id?: number; token: { access: string; refresh: string; expires_in?: number } } } }) => {
       saToast.info(t('cameraPwd.toExam'), { title: 'Info' });
 
-      const resp = res.data;
+      const resp = res.data.content;
       sessionStorage.setItem('partc', String(resp.participant_exam_session_id ?? 0));
       examReq.storeTokens(resp.access, resp.refresh, resp.expires_in ?? 180);
       page1Req.eraseCookie('access_token_wux');
