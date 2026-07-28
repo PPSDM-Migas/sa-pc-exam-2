@@ -1,6 +1,5 @@
 <script setup>
 import {computed, onMounted, ref, watch} from "vue";
-import { pushLegacyToast } from "@/assets/js/Mixins/TreeShake/toast.js";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {mixins} from "@/assets/js/Mixins/mixinDeprecate.js";
 import BasicCard from "@/components/Cards/BasicCard.vue";
@@ -25,14 +24,7 @@ const props = defineProps({
   rightBtnClass: String,
 });
 
-function manualPushToast(content) {
-  pushLegacyToast(content);
-}
-
 const enLang = ref(null);
-defineExpose({
-  manualPushToast,
-})
 
 const withTimer = ref(false)
 onMounted(() => {

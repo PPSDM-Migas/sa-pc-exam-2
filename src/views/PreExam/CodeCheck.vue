@@ -3,6 +3,7 @@ import { QrcodeStream } from 'vue-qrcode-reader';
 import { onMounted, reactive, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from 'axios';
+import { saToast } from '@bpmlib/vue-satoast';
 import BasicCard from '@/components/Cards/BasicCard.vue';
 import FormInput from '@/components/Forms/FormInput.vue';
 import BasicButton from '@/components/Buttons/BasicButton.vue';
@@ -20,15 +21,8 @@ interface UserBio {
   photo_path: string;
 }
 
-interface ToastPayload {
-  content: string;
-  type: string;
-  title?: string;
-}
-
 const emit = defineEmits<{
   success: [bio: UserBio];
-  toast: [payload: ToastPayload];
 }>();
 
 const { t, locale } = useI18n();
@@ -78,10 +72,7 @@ const checkCameraPermission = async () => {
 const doCheck = async (val: string | null = null) => {
   const search = val ?? userCode.value;
   if (!search) {
-    emit('toast', {
-      content: locale.value === 'en' ? 'Participant code can not be empty' : 'Kode peserta tidak boleh kosong',
-      type: 'danger',
-    });
+    saToast.error(locale.value === 'en' ? 'Participant code can not be empty' : 'Kode peserta tidak boleh kosong');
     return;
   }
 
@@ -103,11 +94,7 @@ const doCheck = async (val: string | null = null) => {
       emit('success', bio);
     })
     .catch((e: { response?: { data?: { message?: string } }; message: string }) => {
-      emit('toast', {
-        content: `${e.response?.data?.message ?? e.message}`,
-        title: e.message,
-        type: 'danger',
-      });
+      saToast.error(`${e.response?.data?.message ?? e.message}`, { title: e.message });
     })
     .finally(() => {
       userCode.fetchStatus = 1;

@@ -2,6 +2,7 @@
 import {computed, onMounted, reactive, ref} from 'vue';
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
+import { saToast } from '@bpmlib/vue-satoast';
 import {translateDate} from "@/assets/js/Mixins/TreeShake/dateTime.js";
 import ConfirmationModal from "@/components/Modals/ConfirmationModal.vue";
 import VueMarkdown from 'vue-markdown-render';
@@ -13,7 +14,6 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 const props = defineProps({
   autoUpdate: Boolean,
 });
-const emits = defineEmits(['toastEvent']);
 
 const checker = reactive({
   status: -1, // -1: unavailable, 0: checking, 1: available
@@ -73,16 +73,11 @@ const checkForUpdate = async (openDirect = false) => {
       if (openDirect) downloader.modalShow = true;
     } else {
       checker.status = -1;
-      emits('toastEvent', {
-        content: 'Belum ada update aplikasi tersedia. Have a nice day! :)',
-      })
+      saToast.info('Belum ada update aplikasi tersedia. Have a nice day! :)');
     }
   } catch (err) {
     checker.status = -1;
-    emits('toastEvent', {
-      content: `Gagal mengecek update aplikasi: ${err}`,
-      type: 'danger',
-    });
+    saToast.error(`Gagal mengecek update aplikasi: ${err}`);
   }
 }
 

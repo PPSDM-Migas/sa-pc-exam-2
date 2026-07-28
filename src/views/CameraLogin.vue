@@ -13,7 +13,6 @@ import CodeCheck from '@/views/PreExam/CodeCheck.vue';
 import CertificateAgreement from '@/views/PreExam/CertificateAgreement.vue';
 import BioAndPassword from '@/views/PreExam/BioAndPassword.vue';
 
-const layout = ref(null);
 const { t } = useI18n();
 
 const router = useRouter();
@@ -68,10 +67,6 @@ const onCodeCheckSuccess = (bio) => {
   clearTimer(true);
 };
 
-const onToast = (payload) => {
-  layout.value.manualPushToast(payload);
-};
-
 const onboard = () => {
   page1Req.eraseCookie('access_ex_wux');
   page1Req.eraseCookie('refresh_ex_wux');
@@ -94,7 +89,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <BackgroundLayout ref="layout" left-btn-icon="cog" right-btn-class="red" right-btn-icon="reply" @left-corner="setting = !setting" @right-corner="router.back()">
+  <BackgroundLayout left-btn-icon="cog" right-btn-class="red" right-btn-icon="reply" @left-corner="setting = !setting" @right-corner="router.back()">
     <SettingModal :show="setting" @close="setting = !setting" />
     <LogoTitleCard class="w-full px-4" />
 
@@ -105,13 +100,12 @@ onUnmounted(() => {
     </div>
 
     <div class="w-full max-w-2xl grid grid-cols-1 gap-2">
-      <CodeCheck v-if="pageStep === 0" @success="onCodeCheckSuccess" @toast="onToast" />
+      <CodeCheck v-if="pageStep === 0" @success="onCodeCheckSuccess" />
 
       <CertificateAgreement
         v-else-if="pageStep === 1"
         @agree="pageStep = 2; clearTimer(true)"
         @back="pageStep = 0"
-        @toast="onToast"
       />
 
       <BioAndPassword
@@ -119,7 +113,6 @@ onUnmounted(() => {
         :bio="userBio"
         @back="pageStep = 0"
         @started="clearTimer()"
-        @toast="onToast"
       />
     </div>
 

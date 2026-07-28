@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useI18n } from 'vue-i18n';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { saToast } from '@bpmlib/vue-satoast';
 import BasicCard from '@/components/Cards/BasicCard.vue';
 import FormInput from '@/components/Forms/FormInput.vue';
 import BasicButton from '@/components/Buttons/BasicButton.vue';
@@ -20,18 +21,11 @@ interface UserBio {
   photo_path: string;
 }
 
-interface ToastPayload {
-  content: string;
-  type: string;
-  title?: string;
-}
-
 const props = defineProps<{ bio: UserBio }>();
 
 const emit = defineEmits<{
   back: [];
   started: [];
-  toast: [payload: ToastPayload];
 }>();
 
 const { t } = useI18n();
@@ -54,7 +48,7 @@ const examPassword = reactive({
 
 const storeBiodata = () => {
   if (!bioForm.phone || !bioForm.company) {
-    emit('toast', { content: t('cameraBio.empty'), type: 'danger' });
+    saToast.error(t('cameraBio.empty'));
     return;
   }
 
@@ -65,17 +59,13 @@ const storeBiodata = () => {
     .then((res: { data: { message?: string } }) => {
       bioForm.submitStatus = 1;
       subStep.value = 1;
-      emit('toast', {
-        content: res.data.message || t('cameraBio.updated'),
-        title: 'Info',
-        type: 'success',
-      });
+      saToast.success(res.data.message || t('cameraBio.updated'), { title: 'Info' });
     })
     .catch((e: { response?: { data?: { error?: string } }; message: string }) => {
       bioForm.submitStatus = -1;
       const defaultError = t('problem');
       bioForm.error = e.response?.data?.error ?? defaultError;
-      emit('toast', { content: bioForm.error, title: 'Info', type: 'danger' });
+      saToast.error(bioForm.error, { title: 'Info' });
     });
 };
 
@@ -93,7 +83,7 @@ const startExam = () => {
     .setBody({ exam_access_code: examPassword.pwd })
     .post('participant_exam.start_exam_session')
     .then((res: { data: { content: { participant_exam_session_id?: number; token: { access: string; refresh: string; expires_in?: number } } } }) => {
-      emit('toast', { content: t('cameraPwd.toExam'), title: 'Info', type: 'info' });
+      saToast.info(t('cameraPwd.toExam'), { title: 'Info' });
 
       const resp = res.data;
       sessionStorage.setItem('partc', String(resp.participant_exam_session_id ?? 0));
@@ -105,11 +95,7 @@ const startExam = () => {
     })
     .catch((e: { response?: { data?: { message?: string } }; message: string }) => {
       examPassword.loadStatus = 1;
-      emit('toast', {
-        content: `${e.response?.data?.message ?? e.message}`,
-        title: e.message,
-        type: 'danger',
-      });
+      saToast.error(`${e.response?.data?.message ?? e.message}`, { title: e.message });
     });
 };
 </script>

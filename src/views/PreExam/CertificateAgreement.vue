@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { saToast } from '@bpmlib/vue-satoast';
 import BasicCard from '@/components/Cards/BasicCard.vue';
 import BasicButton from '@/components/Buttons/BasicButton.vue';
 import FormSwitch from '@/components/Forms/FormSwitch.vue';
 
-interface ToastPayload {
-  content: string;
-  type: string;
-  title?: string;
-}
-
 const emit = defineEmits<{
   agree: [];
   back: [];
-  toast: [payload: ToastPayload];
 }>();
 
 const { t } = useI18n();
@@ -23,10 +17,7 @@ const agreed = ref<boolean>(false);
 
 const onNext = () => {
   if (!agreed.value) {
-    emit('toast', {
-      content: t('cameraAgree.mustAgree'),
-      type: 'danger',
-    });
+    saToast.error(t('cameraAgree.mustAgree'));
     return;
   }
   emit('agree');

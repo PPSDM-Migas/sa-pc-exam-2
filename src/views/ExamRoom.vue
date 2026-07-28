@@ -27,7 +27,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import {translateDateRange} from "../assets/js/Mixins/TreeShake/dateTime.js";
 import {nthAlphabet} from "@/assets/js/Mixins/TreeShake/alphaNumeric.js";
 import {defaultDarkModeCheck} from "@/assets/js/Mixins/TreeShake/browserBehavior.js";
-import {pushLegacyToast} from "@/assets/js/Mixins/TreeShake/toast.js";
+import { saToast } from '@bpmlib/vue-satoast';
 import TheCalculator from "@/views/Component/TheCalculator.vue";
 
 const { t } = useI18n({ useScope: 'global' });
@@ -37,10 +37,6 @@ const nav = ref(null);
 
 
 const router = useRouter();
-
-function manualPushToast(content) {
-  pushLegacyToast(content);
-}
 
 const userActions = ref([]);
 
@@ -272,12 +268,7 @@ const getQuestionDetailByNumber = (index, id) => {
 const selectOption = async (optionId, num) => {
   const opt = num + 1;
   const qNum = questionDetail.index + 1;
-  manualPushToast({
-    content: `${t('exam.warning.initAns', { ans: opt, num: qNum })}...`,
-    type: 'x',
-    duration: 3,
-    icon: 'cloud-arrow-up',
-  });
+  saToast.info(`${t('exam.warning.initAns', { ans: opt, num: qNum })}...`, { duration: 3 });
   const start = Date.now();
   await examReq
     .setBody({
@@ -294,18 +285,11 @@ const selectOption = async (optionId, num) => {
           option.is_chosen = false;
         }
       });
-      manualPushToast({
-        content: `${t('exam.warning.successAns', { ans: opt, num: qNum })}...`,
-        type: 'success',
-      });
+      saToast.success(`${t('exam.warning.successAns', { ans: opt, num: qNum })}...`);
       pushAction('submit_ans', Date.now() - start, 200);
     })
     .catch((error) => {
-      manualPushToast({
-        title: `${t('exam.warning.faultAns', { ans: opt, num: qNum })}`,
-        content: error.message,
-        type: 'danger',
-      });
+      saToast.error(error.message, { title: `${t('exam.warning.faultAns', { ans: opt, num: qNum })}` });
       pushAction('submit_ans', Date.now() - start, error.response.status);
     });
 };
@@ -322,17 +306,11 @@ const descriptionAnswer = async () => {
       examDetail.data.questions[questionDetail.index].is_answered = true;
       questionDetail.data.freetext_answer = res.data.content.freetext_answer;
 
-      manualPushToast({
-        content: res.data.message,
-        type: 'success',
-      });
+      saToast.success(res.data.message);
       pushAction('submit_ess', Date.now() - start, 200);
     })
     .catch((error) => {
-      manualPushToast({
-        content: error.message,
-        type: 'danger',
-      });
+      saToast.error(error.message);
       pushAction('submit_ess', Date.now() - start, error.response.status);
     });
 };
@@ -373,10 +351,7 @@ const getQuestionNumbers = async () => {
       if (errMsg === 'Waktu Anda sudah habis') goToEvaluation();
       else if (errMsg === 'Anda sudah mengerjakan ujian ini sebelumnya!') router.push('/');
       else {
-        manualPushToast({
-          content: error.message,
-          type: 'danger',
-        });
+        saToast.error(error.message);
       }
     });
 };
@@ -428,18 +403,12 @@ const addNote = async () => {
         }
       });
       notesModal.show = false;
-      manualPushToast({
-        content: res.data.message,
-        type: 'success',
-      });
+      saToast.success(res.data.message);
       pushAction('add_note', Date.now() - start, 200);
     })
     .catch((error) => {
       notesModal.show = false;
-      manualPushToast({
-        content: error.message,
-        type: 'danger',
-      });
+      saToast.error(error.message);
       pushAction('add_note', Date.now() - start, error.response.status);
     })
     .finally(() => {
@@ -463,18 +432,12 @@ const removeNote = async () => {
         }
       });
       notesModal.show = false;
-      manualPushToast({
-        content: res.data.message,
-        type: 'success',
-      });
+      saToast.success(res.data.message);
       pushAction('del_note', Date.now() - start, 200);
     })
     .catch((error) => {
       notesModal.show = false;
-      manualPushToast({
-        content: error.message,
-        type: 'danger',
-      });
+      saToast.error(error.message);
       pushAction('del_note', Date.now() - start, error.response.status);
     });
 };
